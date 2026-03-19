@@ -1,11 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-gsap.registerPlugin(ScrollTrigger);
 
 type ColorSwatch = { code: string; label: string; hex: string };
 type ColorGroup = { name: string; colors: ColorSwatch[] };
@@ -57,21 +53,17 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
 export default function ColorPalette() {
   const [activeGroup, setActiveGroup] = useState(0);
   const [hoveredColor, setHoveredColor] = useState<string | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".palette-header", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, scrollTrigger: { trigger: sectionRef.current, start: "top 70%" } });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   const rows = chunkArray(colorGroups[activeGroup].colors, 6);
 
   return (
-    <section ref={sectionRef} id="palette" className="relative bg-dark-navy transition-colors duration-1000" style={{ backgroundColor: hoveredColor ? `${hoveredColor}22` : undefined }}>
+    <section
+      id="palette"
+      className="bg-dark-navy transition-colors duration-1000"
+      style={{ backgroundColor: hoveredColor ? `${hoveredColor}22` : undefined }}
+    >
       <div className="mx-auto max-w-[1440px] px-8 py-20 lg:px-20">
-        <div className="palette-header invisible mb-12 flex flex-col items-center gap-3 text-center">
+        <div className="mb-12 flex flex-col items-center gap-3 text-center">
           <span className="text-[12px] font-medium tracking-[4px] text-crimson">ЦВЕТОВАЯ ПАЛИТРА</span>
           <h2 className="font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Литера Чувств</h2>
           <p className="text-[16px] text-steel-blue">Интерактивный селектор цветов для вашего проекта</p>
@@ -89,8 +81,8 @@ export default function ColorPalette() {
           <motion.div key={activeGroup} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }} className="flex flex-col gap-4">
             {rows.map((row, rowIdx) => (
               <div key={rowIdx} className="flex flex-wrap gap-4 lg:flex-nowrap">
-                {row.map((color) => (
-                  <div key={color.code + rowIdx} className="group min-w-[calc(50%-8px)] flex-1 cursor-pointer sm:min-w-[calc(33%-8px)] lg:min-w-0" onMouseEnter={() => setHoveredColor(color.hex)} onMouseLeave={() => setHoveredColor(null)}>
+                {row.map((color, colIdx) => (
+                  <div key={`${color.code}-${rowIdx}-${colIdx}`} className="group min-w-[calc(50%-8px)] flex-1 cursor-pointer sm:min-w-[calc(33%-8px)] lg:min-w-0" onMouseEnter={() => setHoveredColor(color.hex)} onMouseLeave={() => setHoveredColor(null)}>
                     <div className="mb-2 h-[80px] w-full transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl" style={{ backgroundColor: color.hex }} />
                     <p className="text-[10px] font-medium tracking-[1px] text-off-white/60">{color.code}</p>
                     <p className="text-[10px] text-steel-blue opacity-0 transition-opacity group-hover:opacity-100">{color.label}</p>

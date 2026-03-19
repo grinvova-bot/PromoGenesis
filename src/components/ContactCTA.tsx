@@ -1,13 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from "framer-motion";
 
 const schema = z.object({
   name: z.string().min(2, "Минимум 2 символа"),
@@ -19,19 +15,10 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function ContactCTA() {
-  const sectionRef = useRef<HTMLElement>(null);
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: { contactMethod: "phone" },
   });
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".cta-content", { y: 50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, scrollTrigger: { trigger: sectionRef.current, start: "top 70%" } });
-      gsap.fromTo(".cta-form", { y: 50, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, delay: 0.2, scrollTrigger: { trigger: sectionRef.current, start: "top 70%" } });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   const onSubmit = (data: FormData) => {
     console.log("Form submitted:", data);
@@ -39,15 +26,27 @@ export default function ContactCTA() {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="bg-off-white">
+    <section id="contact" className="bg-off-white">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-8 py-20 lg:flex-row lg:gap-20 lg:px-20">
-        <div className="cta-content invisible flex flex-1 flex-col justify-center gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-1 flex-col justify-center gap-6"
+        >
           <span className="text-[12px] font-medium tracking-[4px] text-crimson">БЕСПЛАТНО</span>
           <h2 className="font-serif text-4xl leading-[1.1] font-medium text-dark-navy md:text-[48px]">Для знакомства<br />с краской</h2>
           <p className="max-w-lg text-[16px] leading-[1.6] text-steel-blue">Заколеруем краску в цвета вашего проекта, даже по палитрам других производителей. Подарим выкрасы и пробник для теста.</p>
-        </div>
+        </motion.div>
 
-        <div className="cta-form invisible w-full shrink-0 bg-dark-navy p-10 lg:w-[480px]">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="w-full shrink-0 bg-dark-navy p-10 lg:w-[480px]"
+        >
           <h3 className="mb-5 font-serif text-[28px] font-semibold text-off-white">Оставить заявку</h3>
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
             <div>
@@ -78,7 +77,7 @@ export default function ContactCTA() {
             {errors.consent && <p className="-mt-3 text-[12px] text-crimson">{errors.consent.message}</p>}
             <button type="submit" className="mt-2 w-full bg-crimson py-4 text-[14px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red hover:shadow-[0_0_40px_rgba(239,35,60,0.3)]">Получить бесплатно</button>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

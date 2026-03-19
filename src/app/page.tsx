@@ -1,5 +1,3 @@
-import SmoothScroll from "@/components/SmoothScroll";
-import CustomCursor from "@/components/CustomCursor";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Products from "@/components/Products";
@@ -11,8 +9,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <SmoothScroll>
-      <CustomCursor />
+    <>
       <Navigation />
       <main>
         <Hero />
@@ -23,6 +20,6 @@ export default function Home() {
         <ContactCTA />
       </main>
       <Footer />
-    </SmoothScroll>
+    </>
   );
 }
