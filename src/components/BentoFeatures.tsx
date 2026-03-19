@@ -23,7 +23,7 @@ const features: Feature[] = [
 export default function BentoFeatures() {
   return (
     <section id="features" className="bg-dark-navy">
-      <div className="mx-auto max-w-[1280px] px-6 py-24 lg:px-16">
+      <div className="mx-auto max-w-[1280px] px-8 py-24 lg:px-20">
         <div className="mb-16 flex flex-col items-center gap-4 text-center">
           <span className="text-[12px] font-medium tracking-[5px] text-crimson">ПРЕИМУЩЕСТВА</span>
           <h2 className="font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Почему Genesis</h2>

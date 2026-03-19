@@ -28,7 +28,7 @@ export default function Navigation() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-6 lg:px-16">
+      <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-8 lg:px-20">
         <a href="#" className="flex items-center gap-2">
           <span className="font-serif text-[22px] font-semibold tracking-[2px] text-off-white">
             TEX-COLOR

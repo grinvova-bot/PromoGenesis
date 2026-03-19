@@ -12,7 +12,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark-navy/70 via-dark-navy/40 to-dark-navy/90" />
       </div>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-[1280px] items-center px-6 lg:px-16">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1280px] items-center px-8 lg:px-20">
         <div className="flex max-w-[680px] flex-col gap-7">
           <motion.span
             initial={{ opacity: 0, y: 20 }}

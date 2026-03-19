@@ -22,7 +22,7 @@ export default function ExpertTestimonial() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-1 flex-col justify-center gap-8 px-8 py-16 lg:px-16 lg:py-12"
+          className="flex flex-1 flex-col justify-center gap-8 px-8 py-16 lg:px-20 lg:py-12"
         >
           <span className="text-[12px] font-medium tracking-[5px] text-crimson">ЭКСПЕРТНОЕ МНЕНИЕ</span>
 

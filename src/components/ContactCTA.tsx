@@ -27,7 +27,7 @@ export default function ContactCTA() {
 
   return (
     <section id="contact" className="bg-off-white">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center lg:gap-16 lg:px-16">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-12 px-8 py-24 lg:flex-row lg:items-center lg:gap-16 lg:px-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -13,7 +13,7 @@ const products = [
 export default function Products() {
   return (
     <section id="products" className="bg-off-white">
-      <div className="mx-auto max-w-[1280px] px-6 py-24 lg:px-16">
+      <div className="mx-auto max-w-[1280px] px-8 py-24 lg:px-20">
         <div className="mb-16 flex flex-col gap-4">
           <span className="text-[12px] font-medium tracking-[5px] text-crimson">ЛИНЕЙКА GENESIS</span>
           <h2 className="font-serif text-4xl font-medium text-dark-navy md:text-[48px] md:leading-none">Наши продукты</h2>
