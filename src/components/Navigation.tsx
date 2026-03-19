@@ -53,7 +53,7 @@ export default function Navigation() {
 
         <a
           href="#contact"
-          className="hidden rounded bg-crimson px-7 py-2.5 text-[12px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red md:block"
+          className="hidden bg-crimson px-10 py-4 text-[12px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red md:block"
         >
           Получить веер
         </a>

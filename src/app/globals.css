@@ -42,12 +42,12 @@ body {
   color: white;
 }
 
-/* Единый контейнер и ритм секций — один источник правды для отступов */
+/* Контейнер как в pencil-new.pen: артборд 1440, боковые поля 80px */
 .page-container {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1440px;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
 }
@@ -61,35 +61,41 @@ body {
 
 @media (min-width: 1024px) {
   .page-container {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 }
 
-@media (min-width: 1280px) {
-  .page-container {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-
-/* Вертикальные отступы секций: плотнее на мобиле, воздух на десктопе */
+/* Секции в .pen: padding 80 → py-20 (5rem) на десктопе */
 .section-y {
-  padding-top: 4.5rem;
-  padding-bottom: 4.5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 @media (min-width: 768px) {
   .section-y {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 }
 
 @media (min-width: 1024px) {
   .section-y {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* Футер в .pen: вертикаль 60px */
+.section-y-footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .section-y-footer {
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
   }
 }
 

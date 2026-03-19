@@ -44,35 +44,40 @@ const colorGroups: ColorGroup[] = [
   },
 ];
 
+function chunkArray<T>(arr: T[], size: number): T[][] {
+  const result: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) result.push(arr.slice(i, i + size));
+  return result;
+}
+
 export default function ColorPalette() {
   const [activeGroup, setActiveGroup] = useState(0);
   const [hoveredColor, setHoveredColor] = useState<string | null>(null);
 
-  const colors = colorGroups[activeGroup].colors;
+  const rows = chunkArray(colorGroups[activeGroup].colors, 6);
 
   return (
     <section
       id="palette"
-      className="bg-dark-navy section-y transition-colors duration-1000"
+      className="bg-dark-navy section-y transition-colors duration-700"
       style={{ backgroundColor: hoveredColor ? `${hoveredColor}22` : undefined }}
     >
-      <div className="page-container">
-        <header className="mb-10 text-center md:mb-14">
-          <span className="mb-3 block text-[12px] font-medium tracking-[5px] text-crimson">ЦВЕТОВАЯ ПАЛИТРА</span>
-          <h2 className="mb-4 font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Литера Чувств</h2>
-          <p className="mx-auto max-w-lg text-[16px] leading-relaxed text-steel-blue">Интерактивный селектор цветов для вашего проекта</p>
+      <div className="page-container flex flex-col gap-12">
+        <header className="flex flex-col items-center gap-3 text-center">
+          <span className="text-[12px] font-medium tracking-[4px] text-crimson">ЦВЕТОВАЯ ПАЛИТРА</span>
+          <h2 className="font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Литера Чувств</h2>
+          <p className="max-w-xl text-[16px] text-steel-blue">Интерактивный селектор цветов для вашего проекта</p>
         </header>
 
-        <div className="mb-10 flex flex-wrap justify-center gap-3">
+        {/* Табы: gap 24, padding 10×24 как в .pen */}
+        <div className="flex flex-wrap justify-center gap-6">
           {colorGroups.map((group, i) => (
             <button
               key={group.name}
               type="button"
               onClick={() => setActiveGroup(i)}
-              className={`rounded-full px-6 py-2.5 text-[13px] font-medium transition-all duration-300 ${
-                activeGroup === i
-                  ? "bg-crimson text-white shadow-lg shadow-crimson/25"
-                  : "border border-border-subtle text-steel-blue hover:border-off-white/50 hover:text-off-white"
+              className={`px-6 py-2.5 text-[13px] font-medium transition-colors duration-300 ${
+                activeGroup === i ? "bg-crimson text-pure-white" : "border border-border-subtle text-steel-blue hover:border-off-white/40 hover:text-off-white"
               }`}
             >
               {group.name}
@@ -83,36 +88,51 @@ export default function ColorPalette() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeGroup}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.35 }}
-            className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-4"
+            transition={{ duration: 0.3 }}
+            className="flex flex-col gap-4"
           >
-            {colors.map((color) => (
+            {rows.map((row, rowIdx) => (
               <div
-                key={`${activeGroup}-${color.code}-${color.hex}`}
-                className="group cursor-pointer"
-                onMouseEnter={() => setHoveredColor(color.hex)}
-                onMouseLeave={() => setHoveredColor(null)}
+                key={rowIdx}
+                className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6"
               >
-                <div
-                  className="mb-2 aspect-[5/2] w-full rounded-md ring-1 ring-white/10 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg group-hover:ring-white/20"
-                  style={{ backgroundColor: color.hex }}
-                />
-                <p className="text-[10px] font-medium tracking-wide text-off-white/55">{color.code}</p>
-                <p className="min-h-[1rem] text-[10px] leading-tight text-steel-blue opacity-0 transition-opacity group-hover:opacity-100">{color.label}</p>
+                {row.map((color) => (
+                  <button
+                    key={`${activeGroup}-${color.code}-${rowIdx}`}
+                    type="button"
+                    className="group w-full text-left"
+                    onMouseEnter={() => setHoveredColor(color.hex)}
+                    onMouseLeave={() => setHoveredColor(null)}
+                  >
+                    <div
+                      className="relative mb-2 flex h-20 w-full items-end pb-2 pl-3 transition-transform duration-300 group-hover:scale-[1.02]"
+                      style={{ backgroundColor: color.hex }}
+                    >
+                      <span
+                        className={`text-[10px] font-medium tracking-wide ${
+                          parseInt(color.hex.slice(1, 3), 16) > 200 ? "text-dark-navy" : "text-pure-white"
+                        }`}
+                      >
+                        {color.code}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-steel-blue opacity-0 transition-opacity group-hover:opacity-100">{color.label}</span>
+                  </button>
+                ))}
               </div>
             ))}
           </motion.div>
         </AnimatePresence>
 
-        <div className="mt-12 flex justify-center md:mt-14">
+        <div className="flex justify-center pt-4">
           <a
             href="https://www.tex-color.pro/images/docs/Catalog_Image_TexColor.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-off-white/35 px-10 py-3.5 text-[13px] font-semibold tracking-wide text-off-white transition-all duration-300 hover:border-off-white hover:bg-off-white/8"
+            className="border border-off-white px-10 py-4 text-[14px] font-semibold tracking-wide text-off-white transition-colors duration-300 hover:bg-off-white/10"
           >
             Скачать каталог
           </a>

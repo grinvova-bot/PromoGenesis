@@ -11,54 +11,66 @@ interface Feature {
   accent: boolean;
 }
 
-const features: Feature[] = [
+const row1: Feature[] = [
   { Icon: Leaf, title: "Экологичность", description: "Минимальное воздействие на окружающую среду и здоровье человека", accent: false },
   { Icon: Award, title: "Качество", description: "Европейские стандарты из сырьевых компонентов высочайшего качества", accent: true },
   { Icon: ShieldCheck, title: "Надёжность", description: "Безупречно гладкая бархатистая фактура, устойчивая к загрязнениям и мытью", accent: false },
+];
+
+const row2: Feature[] = [
   { Icon: Palette, title: "Стойкость цвета", description: "Подлинная стойкость цвета без выцветания на долгие годы", accent: false },
   { Icon: Layers, title: "Самовыравнивание", description: "Продвинутая технология для безупречно гладкого покрытия", accent: false },
   { Icon: Heart, title: "Низкий ЛОС", description: "Экологичная формула с низким содержанием летучих органических соединений", accent: false },
 ];
 
+function Cell({
+  feature,
+  wide,
+  motionDelay,
+}: {
+  feature: Feature;
+  wide?: boolean;
+  motionDelay: number;
+}) {
+  const { Icon, title, description, accent } = feature;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.45, delay: motionDelay }}
+      className={`flex min-h-[240px] flex-col justify-end gap-4 p-8 ${
+        wide ? "w-full shrink-0 xl:w-[640px] xl:max-w-none" : "min-w-0 w-full xl:flex-1"
+      } ${accent ? "bg-gradient-to-br from-crimson to-deep-red" : "bg-surface-dark"}`}
+    >
+      <Icon size={32} className={accent ? "text-white" : "text-crimson"} strokeWidth={1.5} />
+      <h3 className={`font-serif text-[24px] font-semibold ${accent ? "text-white" : "text-off-white"}`}>{title}</h3>
+      <p className={`text-[14px] leading-[1.5] ${accent ? "text-white/80" : "text-steel-blue"}`}>{description}</p>
+    </motion.div>
+  );
+}
+
 export default function BentoFeatures() {
   return (
     <section id="features" className="bg-dark-navy section-y">
-      <div className="page-container">
-        <header className="mb-12 text-center md:mb-16">
-          <span className="mb-3 block text-[12px] font-medium tracking-[5px] text-crimson">ПРЕИМУЩЕСТВА</span>
-          <h2 className="mb-4 font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Почему Genesis</h2>
-          <p className="mx-auto max-w-lg text-[16px] leading-relaxed text-steel-blue">Революционная формула для безупречных интерьеров</p>
+      <div className="page-container flex flex-col gap-12">
+        <header className="flex flex-col items-center gap-3 text-center">
+          <span className="text-[12px] font-medium tracking-[4px] text-crimson">ПРЕИМУЩЕСТВА</span>
+          <h2 className="font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Почему Genesis</h2>
+          <p className="max-w-xl text-[16px] text-steel-blue">Революционная формула для безупречных интерьеров</p>
         </header>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          {features.map((feature, i) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className={`group flex min-h-[200px] flex-col justify-between gap-4 rounded-xl p-6 transition-all duration-500 hover:-translate-y-0.5 hover:shadow-2xl md:min-h-[220px] md:p-7 ${
-                feature.accent
-                  ? "bg-gradient-to-br from-crimson to-deep-red"
-                  : "border border-border-subtle bg-surface-dark"
-              }`}
-            >
-              <feature.Icon
-                size={28}
-                className={`shrink-0 transition-transform duration-300 group-hover:scale-110 ${feature.accent ? "text-white" : "text-crimson"}`}
-                strokeWidth={1.5}
-              />
-              <div className="flex flex-col gap-2">
-                <h3 className={`font-serif text-xl font-semibold md:text-[22px] ${feature.accent ? "text-white" : "text-off-white"}`}>
-                  {feature.title}
-                </h3>
-                <p className={`text-[13px] leading-relaxed ${feature.accent ? "text-white/85" : "text-steel-blue"}`}>
-                  {feature.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 xl:h-[240px] xl:flex-row xl:gap-6">
+            <Cell feature={row1[0]} motionDelay={0} />
+            <Cell feature={row1[1]} motionDelay={0.06} />
+            <Cell feature={row1[2]} wide motionDelay={0.12} />
+          </div>
+          <div className="flex flex-col gap-6 xl:h-[240px] xl:flex-row xl:gap-6">
+            <Cell feature={row2[0]} wide motionDelay={0} />
+            <Cell feature={row2[1]} motionDelay={0.06} />
+            <Cell feature={row2[2]} motionDelay={0.12} />
+          </div>
         </div>
       </div>
     </section>
