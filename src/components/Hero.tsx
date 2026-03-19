@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[640px] max-h-[860px] overflow-hidden bg-dark-navy">
+    <section className="relative min-h-[100svh] overflow-hidden bg-dark-navy pt-20">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80')" }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-navy/70 via-dark-navy/40 to-dark-navy/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-navy/75 via-dark-navy/45 to-dark-navy/92" />
       </div>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-[1280px] items-center px-8 lg:px-20">
-        <div className="flex max-w-[680px] flex-col gap-7">
+      <div className="relative z-10 page-container flex min-h-[calc(100svh-5rem)] max-h-[880px] flex-col justify-center pb-16 md:pb-20">
+        <div className="flex max-w-[min(36rem,100%)] flex-col gap-6 md:gap-8">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

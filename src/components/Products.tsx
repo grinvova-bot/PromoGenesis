@@ -12,15 +12,15 @@ const products = [
 
 export default function Products() {
   return (
-    <section id="products" className="bg-off-white">
-      <div className="mx-auto max-w-[1280px] px-8 py-24 lg:px-20">
-        <div className="mb-16 flex flex-col gap-4">
-          <span className="text-[12px] font-medium tracking-[5px] text-crimson">ЛИНЕЙКА GENESIS</span>
-          <h2 className="font-serif text-4xl font-medium text-dark-navy md:text-[48px] md:leading-none">Наши продукты</h2>
+    <section id="products" className="bg-off-white section-y">
+      <div className="page-container">
+        <header className="mb-12 max-w-2xl md:mb-16">
+          <span className="mb-3 block text-[12px] font-medium tracking-[5px] text-crimson">ЛИНЕЙКА GENESIS</span>
+          <h2 className="mb-4 font-serif text-4xl font-medium text-dark-navy md:text-[48px] md:leading-none">Наши продукты</h2>
           <p className="text-[16px] leading-relaxed text-steel-blue">Профессиональные краски для интерьеров, которым доверяют дизайнеры</p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {products.map((product, i) => (
             <motion.div
               key={product.name}
@@ -28,16 +28,16 @@ export default function Products() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group cursor-pointer overflow-hidden rounded-lg bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
+              className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border border-dark-navy/5 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="flex h-[240px] items-center justify-center overflow-hidden bg-surface-dark p-5">
+              <div className="flex aspect-[4/3] max-h-[260px] min-h-[220px] items-center justify-center bg-surface-dark p-6">
                 <Image src={product.image} alt={product.name} width={200} height={200} className="h-auto max-h-[200px] w-auto object-contain drop-shadow-2xl transition-transform duration-700 group-hover:scale-105" />
               </div>
-              <div className="flex flex-col gap-2 p-5">
+              <div className="flex flex-1 flex-col gap-2 p-6">
                 <span className="text-[10px] font-medium tracking-[3px] text-crimson">{product.tag}</span>
-                <h3 className="font-serif text-[24px] font-semibold text-dark-navy">{product.name}</h3>
-                <p className="text-[13px] leading-relaxed text-steel-blue">{product.description}</p>
-                <a href={product.buyUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block self-start border border-crimson px-6 py-2.5 text-[13px] font-semibold tracking-wide text-crimson transition-all duration-300 hover:bg-crimson hover:text-white">Купить</a>
+                <h3 className="font-serif text-[22px] font-semibold leading-tight text-dark-navy">{product.name}</h3>
+                <p className="flex-1 text-[13px] leading-relaxed text-steel-blue">{product.description}</p>
+                <a href={product.buyUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block self-start rounded border border-crimson px-6 py-2.5 text-[13px] font-semibold tracking-wide text-crimson transition-all duration-300 hover:bg-crimson hover:text-white">Купить</a>
               </div>
             </motion.div>
           ))}

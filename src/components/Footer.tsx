@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="bg-dark-navy">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-8 px-8 py-16 lg:px-20">
+    <footer className="border-t border-border-subtle/80 bg-dark-navy">
+      <div className="page-container flex flex-col gap-10 py-14 md:py-16">
         <div className="flex flex-col justify-between gap-12 lg:flex-row">
           <div className="max-w-[300px]">
             <div className="mb-4 flex items-center gap-2">
