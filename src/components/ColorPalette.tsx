@@ -62,30 +62,30 @@ export default function ColorPalette() {
       className="bg-dark-navy transition-colors duration-1000"
       style={{ backgroundColor: hoveredColor ? `${hoveredColor}22` : undefined }}
     >
-      <div className="mx-auto max-w-[1440px] px-8 py-20 lg:px-20">
-        <div className="mb-12 flex flex-col items-center gap-3 text-center">
-          <span className="text-[12px] font-medium tracking-[4px] text-crimson">ЦВЕТОВАЯ ПАЛИТРА</span>
+      <div className="mx-auto max-w-[1280px] px-6 py-24 lg:px-16">
+        <div className="mb-16 flex flex-col items-center gap-4 text-center">
+          <span className="text-[12px] font-medium tracking-[5px] text-crimson">ЦВЕТОВАЯ ПАЛИТРА</span>
           <h2 className="font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Литера Чувств</h2>
-          <p className="text-[16px] text-steel-blue">Интерактивный селектор цветов для вашего проекта</p>
+          <p className="max-w-md text-[16px] leading-relaxed text-steel-blue">Интерактивный селектор цветов для вашего проекта</p>
         </div>
 
-        <div className="mb-10 flex flex-wrap gap-6">
+        <div className="mb-8 flex flex-wrap justify-center gap-3">
           {colorGroups.map((group, i) => (
-            <button key={group.name} onClick={() => setActiveGroup(i)} className={`px-6 py-2.5 text-[13px] font-medium transition-all duration-300 ${activeGroup === i ? "bg-crimson text-white" : "border border-border-subtle text-steel-blue hover:border-off-white hover:text-off-white"}`}>
+            <button key={group.name} onClick={() => setActiveGroup(i)} className={`rounded-full px-5 py-2 text-[13px] font-medium transition-all duration-300 ${activeGroup === i ? "bg-crimson text-white" : "border border-border-subtle text-steel-blue hover:border-off-white hover:text-off-white"}`}>
               {group.name}
             </button>
           ))}
         </div>
 
         <AnimatePresence mode="wait">
-          <motion.div key={activeGroup} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }} className="flex flex-col gap-4">
+          <motion.div key={activeGroup} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }} className="flex flex-col gap-3">
             {rows.map((row, rowIdx) => (
-              <div key={rowIdx} className="flex flex-wrap gap-4 lg:flex-nowrap">
+              <div key={rowIdx} className="flex flex-wrap gap-3 lg:flex-nowrap">
                 {row.map((color, colIdx) => (
-                  <div key={`${color.code}-${rowIdx}-${colIdx}`} className="group min-w-[calc(50%-8px)] flex-1 cursor-pointer sm:min-w-[calc(33%-8px)] lg:min-w-0" onMouseEnter={() => setHoveredColor(color.hex)} onMouseLeave={() => setHoveredColor(null)}>
-                    <div className="mb-2 h-[80px] w-full transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl" style={{ backgroundColor: color.hex }} />
-                    <p className="text-[10px] font-medium tracking-[1px] text-off-white/60">{color.code}</p>
-                    <p className="text-[10px] text-steel-blue opacity-0 transition-opacity group-hover:opacity-100">{color.label}</p>
+                  <div key={`${color.code}-${rowIdx}-${colIdx}`} className="group min-w-[calc(50%-6px)] flex-1 cursor-pointer sm:min-w-[calc(33%-6px)] lg:min-w-0" onMouseEnter={() => setHoveredColor(color.hex)} onMouseLeave={() => setHoveredColor(null)}>
+                    <div className="mb-2 h-[72px] w-full rounded transition-all duration-300 group-hover:scale-[1.03] group-hover:shadow-lg" style={{ backgroundColor: color.hex }} />
+                    <p className="text-[10px] font-medium tracking-[1px] text-off-white/50">{color.code}</p>
+                    <p className="h-4 text-[10px] text-steel-blue opacity-0 transition-opacity group-hover:opacity-100">{color.label}</p>
                   </div>
                 ))}
               </div>
@@ -93,8 +93,8 @@ export default function ColorPalette() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="mt-12 flex justify-center">
-          <a href="https://www.tex-color.pro/images/docs/Catalog_Image_TexColor.pdf" target="_blank" rel="noopener noreferrer" className="border border-off-white/30 px-10 py-4 text-[14px] font-semibold tracking-wide text-off-white transition-all duration-300 hover:border-off-white hover:bg-off-white/5">Скачать каталог</a>
+        <div className="mt-14 flex justify-center">
+          <a href="https://www.tex-color.pro/images/docs/Catalog_Image_TexColor.pdf" target="_blank" rel="noopener noreferrer" className="rounded-full border border-off-white/30 px-10 py-3.5 text-[13px] font-semibold tracking-wide text-off-white transition-all duration-300 hover:border-off-white hover:bg-off-white/5">Скачать каталог</a>
         </div>
       </div>
     </section>

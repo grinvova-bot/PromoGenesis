@@ -27,17 +27,17 @@ export default function ContactCTA() {
 
   return (
     <section id="contact" className="bg-off-white">
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-8 py-20 lg:flex-row lg:gap-20 lg:px-20">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-12 px-6 py-24 lg:flex-row lg:items-center lg:gap-16 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-1 flex-col justify-center gap-6"
+          className="flex flex-1 flex-col gap-6"
         >
-          <span className="text-[12px] font-medium tracking-[4px] text-crimson">БЕСПЛАТНО</span>
+          <span className="text-[12px] font-medium tracking-[5px] text-crimson">БЕСПЛАТНО</span>
           <h2 className="font-serif text-4xl leading-[1.1] font-medium text-dark-navy md:text-[48px]">Для знакомства<br />с краской</h2>
-          <p className="max-w-lg text-[16px] leading-[1.6] text-steel-blue">Заколеруем краску в цвета вашего проекта, даже по палитрам других производителей. Подарим выкрасы и пробник для теста.</p>
+          <p className="max-w-md text-[16px] leading-[1.7] text-steel-blue">Заколеруем краску в цвета вашего проекта, даже по палитрам других производителей. Подарим выкрасы и пробник для теста.</p>
         </motion.div>
 
         <motion.div
@@ -45,18 +45,18 @@ export default function ContactCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full shrink-0 bg-dark-navy p-10 lg:w-[480px]"
+          className="w-full shrink-0 rounded-lg bg-dark-navy p-8 lg:w-[440px]"
         >
-          <h3 className="mb-5 font-serif text-[28px] font-semibold text-off-white">Оставить заявку</h3>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+          <h3 className="mb-4 font-serif text-[26px] font-semibold text-off-white">Оставить заявку</h3>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <div>
-              <label className="mb-2 block text-[12px] font-medium tracking-[1px] text-steel-blue">Имя</label>
-              <input {...register("name")} placeholder="Ваше имя" className="w-full border border-border-subtle bg-transparent px-4 py-3.5 text-[14px] text-off-white outline-none transition-colors placeholder:text-steel-blue/50 focus:border-crimson" />
+              <label className="mb-1.5 block text-[11px] font-medium tracking-[1px] text-steel-blue">Имя</label>
+              <input {...register("name")} placeholder="Ваше имя" className="w-full rounded border border-border-subtle bg-transparent px-4 py-3 text-[14px] text-off-white outline-none transition-colors placeholder:text-steel-blue/50 focus:border-crimson" />
               {errors.name && <p className="mt-1 text-[12px] text-crimson">{errors.name.message}</p>}
             </div>
             <div>
-              <label className="mb-2 block text-[12px] font-medium tracking-[1px] text-steel-blue">Телефон</label>
-              <input {...register("phone")} placeholder="+7 (___) ___-__-__" className="w-full border border-border-subtle bg-transparent px-4 py-3.5 text-[14px] text-off-white outline-none transition-colors placeholder:text-steel-blue/50 focus:border-crimson" />
+              <label className="mb-1.5 block text-[11px] font-medium tracking-[1px] text-steel-blue">Телефон</label>
+              <input {...register("phone")} placeholder="+7 (___) ___-__-__" className="w-full rounded border border-border-subtle bg-transparent px-4 py-3 text-[14px] text-off-white outline-none transition-colors placeholder:text-steel-blue/50 focus:border-crimson" />
               {errors.phone && <p className="mt-1 text-[12px] text-crimson">{errors.phone.message}</p>}
             </div>
             <div>
@@ -75,7 +75,7 @@ export default function ContactCTA() {
               <span>Я согласен с{" "}<a href="https://promo.alt-x.ru/pdd" target="_blank" rel="noopener noreferrer" className="text-crimson underline">политикой конфиденциальности</a></span>
             </label>
             {errors.consent && <p className="-mt-3 text-[12px] text-crimson">{errors.consent.message}</p>}
-            <button type="submit" className="mt-2 w-full bg-crimson py-4 text-[14px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red hover:shadow-[0_0_40px_rgba(239,35,60,0.3)]">Получить бесплатно</button>
+            <button type="submit" className="mt-2 w-full rounded bg-crimson py-3.5 text-[13px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red hover:shadow-[0_0_40px_rgba(239,35,60,0.3)]">Получить бесплатно</button>
           </form>
         </motion.div>
       </div>

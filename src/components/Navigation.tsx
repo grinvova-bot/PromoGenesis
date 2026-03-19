@@ -28,7 +28,7 @@ export default function Navigation() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-8 lg:px-20">
+      <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-6 lg:px-16">
         <a href="#" className="flex items-center gap-2">
           <span className="font-serif text-[22px] font-semibold tracking-[2px] text-off-white">
             TEX-COLOR
@@ -53,7 +53,7 @@ export default function Navigation() {
 
         <a
           href="#contact"
-          className="hidden bg-crimson px-8 py-3 text-[12px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red md:block"
+          className="hidden rounded bg-crimson px-7 py-2.5 text-[12px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red md:block"
         >
           Получить веер
         </a>

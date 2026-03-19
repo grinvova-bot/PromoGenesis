@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="bg-dark-navy">
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-10 px-8 py-[60px] lg:px-20">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-8 px-6 py-16 lg:px-16">
         <div className="flex flex-col justify-between gap-12 lg:flex-row">
           <div className="max-w-[300px]">
             <div className="mb-4 flex items-center gap-2">
