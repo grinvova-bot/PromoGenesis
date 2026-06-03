@@ -7,7 +7,7 @@ export default function DeepMatte({ p }: { p: ProductSpec }) {
   return (
     <section className="bg-bg-base section-y">
       <div className="page-container flex flex-col gap-12">
-        {/* Большое фото потолка со сложным светом */}
+        {/* Product-specific coating story: optical matte for Decker, durability for Starke. */}
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-border-card/40">
             <Image
@@ -19,7 +19,7 @@ export default function DeepMatte({ p }: { p: ProductSpec }) {
             />
           </div>
           <div className="flex flex-col gap-5">
-            <span className="eyebrow">Технология покрытия</span>
+            <span className="eyebrow">{m.eyebrow ?? "Технология покрытия"}</span>
             <h2 className="font-display text-[clamp(1.6rem,3vw,2.4rem)] font-bold text-text-primary">
               {m.title}
             </h2>
@@ -35,10 +35,9 @@ export default function DeepMatte({ p }: { p: ProductSpec }) {
           </div>
         </div>
 
-        {/* Макро: как работает мат */}
         <div className="grid items-center gap-10 rounded-2xl border border-border-card/40 bg-bg-card p-6 md:p-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex flex-col gap-4">
-            <span className="eyebrow">Под микроскопом</span>
+            <span className="eyebrow">{m.macroEyebrow ?? "Под микроскопом"}</span>
             <h3 className="font-display text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold text-text-primary">
               {m.macroTitle ?? "Почему нет бликов"}
             </h3>
