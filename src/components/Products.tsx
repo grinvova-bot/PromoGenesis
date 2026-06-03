@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
+import { getProduct } from "@/data/products";
+
+// Магазин — пока у красок нет своей страницы продукта
+const BUY_URL = "https://pro.alt-x.ru/brand/tex-color/";
 
 type Spec = { label: string; value: string };
 type Product = {
@@ -137,16 +141,31 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
               </div>
             ))}
           </dl>
-          <Link
-            href={`/products/${p.slug}/`}
-            className="group/btn mt-1 flex items-center justify-between rounded-lg border border-accent/20 px-4 py-3 text-[14px] font-semibold text-text-primary transition-colors hover:border-accent/45 hover:bg-accent/10"
-          >
-            Подробнее
-            <ArrowRight
-              size={16}
-              className="text-accent transition-transform duration-200 group-hover/btn:translate-x-1"
-            />
-          </Link>
+          {getProduct(p.slug) ? (
+            <Link
+              href={`/products/${p.slug}/`}
+              className="group/btn mt-1 flex items-center justify-between rounded-lg border border-accent/20 px-4 py-3 text-[14px] font-semibold text-text-primary transition-colors hover:border-accent/45 hover:bg-accent/10"
+            >
+              Подробнее
+              <ArrowRight
+                size={16}
+                className="text-accent transition-transform duration-200 group-hover/btn:translate-x-1"
+              />
+            </Link>
+          ) : (
+            <a
+              href={BUY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn mt-1 flex items-center justify-between rounded-lg border border-accent/20 px-4 py-3 text-[14px] font-semibold text-text-primary transition-colors hover:border-accent/45 hover:bg-accent/10"
+            >
+              Купить
+              <ArrowRight
+                size={16}
+                className="text-accent transition-transform duration-200 group-hover/btn:translate-x-1"
+              />
+            </a>
+          )}
         </div>
       </article>
     </Reveal>

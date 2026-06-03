@@ -32,10 +32,10 @@ type Props = {
 };
 
 export default function ColorVisualizer({ mode = "modal", colorFilter }: Props) {
-  const colors = useMemo(
-    () => (colorFilter ? paletteColors.filter(colorFilter) : paletteColors),
-    [colorFilter],
-  );
+  const colors = useMemo(() => {
+    const filtered = colorFilter ? paletteColors.filter(colorFilter) : paletteColors;
+    return filtered.length > 0 ? filtered : paletteColors; // фолбэк, если фильтр пуст
+  }, [colorFilter]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedScene, setSelectedScene] = useState<(typeof scenes)[number]>(

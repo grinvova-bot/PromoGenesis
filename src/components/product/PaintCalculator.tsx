@@ -87,10 +87,10 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
           {/* Ввод */}
           <div className="flex flex-col gap-5 rounded-2xl border border-border-card/40 bg-bg-card p-6">
             <div className="flex gap-2">
-              <button type="button" className={chip(areaMode === "direct")} onClick={() => setAreaMode("direct")}>
+              <button type="button" aria-pressed={areaMode === "direct"} className={chip(areaMode === "direct")} onClick={() => setAreaMode("direct")}>
                 Площадь, м²
               </button>
-              <button type="button" className={chip(areaMode === "room")} onClick={() => setAreaMode("room")}>
+              <button type="button" aria-pressed={areaMode === "room"} className={chip(areaMode === "room")} onClick={() => setAreaMode("room")}>
                 Размеры комнаты
               </button>
             </div>
@@ -113,8 +113,8 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
                   )}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  <button type="button" className={chip(walls)} onClick={() => setWalls((v) => !v)}>Стены</button>
-                  <button type="button" className={chip(ceiling)} onClick={() => setCeiling((v) => !v)}>Потолок</button>
+                  <button type="button" aria-pressed={walls} className={chip(walls)} onClick={() => setWalls((v) => !v)}>Стены</button>
+                  <button type="button" aria-pressed={ceiling} className={chip(ceiling)} onClick={() => setCeiling((v) => !v)}>Потолок</button>
                 </div>
                 <label className="flex flex-col gap-1.5">
                   <span className="text-[13px] text-text-secondary">Вычесть окна/двери, м²</span>
@@ -132,16 +132,16 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
             <div className="flex flex-col gap-2">
               <span className="text-[13px] text-text-secondary">Поверхность</span>
               <div className="flex flex-wrap gap-2">
-                <button type="button" className={chip(surface === "smooth")} onClick={() => setSurface("smooth")}>Гладкая (шпатлёвка)</button>
-                <button type="button" className={chip(surface === "absorbent")} onClick={() => setSurface("absorbent")}>Шероховатая/впитывающая</button>
+                <button type="button" aria-pressed={surface === "smooth"} className={chip(surface === "smooth")} onClick={() => setSurface("smooth")}>Гладкая (шпатлёвка)</button>
+                <button type="button" aria-pressed={surface === "absorbent"} className={chip(surface === "absorbent")} onClick={() => setSurface("absorbent")}>Шероховатая/впитывающая</button>
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
               <span className="text-[13px] text-text-secondary">Способ нанесения</span>
               <div className="flex flex-wrap gap-2">
-                <button type="button" className={chip(method === "roller")} onClick={() => setMethod("roller")}>Валик</button>
-                <button type="button" className={chip(method === "spray")} onClick={() => setMethod("spray")}>Распыление</button>
+                <button type="button" aria-pressed={method === "roller"} className={chip(method === "roller")} onClick={() => setMethod("roller")}>Валик</button>
+                <button type="button" aria-pressed={method === "spray"} className={chip(method === "spray")} onClick={() => setMethod("spray")}>Распыление</button>
               </div>
             </div>
 
