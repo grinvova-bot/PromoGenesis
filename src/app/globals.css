@@ -1,117 +1,247 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-dark-navy: #2B2D42;
-  --color-steel-blue: #8D99AE;
-  --color-off-white: #EDF2F4;
-  --color-crimson: #EF233C;
-  --color-deep-red: #D90429;
-  --color-surface-dark: #1E1F2E;
-  --color-surface-light: #F8F9FA;
-  --color-border-subtle: #3A3C54;
-  --color-pure-white: #FFFFFF;
+  /* Семантические цвета темы */
+  --color-bg-base: var(--theme-bg-base);
+  --color-bg-alt: var(--theme-bg-alt);
+  --color-bg-card: var(--theme-bg-card);
+  --color-bg-footer: var(--theme-bg-footer);
+  --color-bg-deep: var(--theme-bg-deep);
+  --color-accent: var(--theme-accent);
+  --color-accent-2: var(--theme-accent-2);
+  --color-text-primary: var(--theme-text-primary);
+  --color-text-secondary: var(--theme-text-secondary);
+  --color-text-tertiary: var(--theme-text-tertiary);
+  --color-border-card: var(--theme-border-card);
+
+  --font-display: var(--font-display), system-ui, sans-serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root,
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-bg-base: #1b2845;
+  --theme-bg-alt: #1f3050;
+  --theme-bg-card: #274060;
+  --theme-bg-footer: #141f33;
+  --theme-bg-deep: #0d1b2a;
+  --theme-accent: #65afff;
+  --theme-accent-2: #5899e2;
+  --theme-text-primary: #f0f4f8;
+  --theme-text-secondary: #8eacc8;
+  --theme-text-tertiary: #5a7a96;
+  --theme-border-card: #335c81;
+  --color-on-accent: #0d1b2a;
+  --product-image-center: #2e4f73;
+  --product-image-edge: #223555;
+  --expert-image-overlay: #274060cc;
+  --hero-overlay-strong: #1b2845f2;
+  --hero-overlay-soft: #1b284599;
+  --hero-overlay-side: #1b284580;
+  --hero-glow: rgba(101, 175, 255, 0.08);
+  --contact-gradient: linear-gradient(180deg, #1b2845 0%, #1e3558 50%, #1b2845 100%);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --theme-bg-base: #f7f9fb;
+  --theme-bg-alt: #edf2f6;
+  --theme-bg-card: #ffffff;
+  --theme-bg-footer: #e5ecf2;
+  --theme-bg-deep: #0d1b2a;
+  --theme-accent: #2b73b7;
+  --theme-accent-2: #467fae;
+  --theme-text-primary: #17283a;
+  --theme-text-secondary: #536b80;
+  --theme-text-tertiary: #74889a;
+  --theme-border-card: #c7d4df;
+  --color-on-accent: #ffffff;
+  --product-image-center: #e9f0f6;
+  --product-image-edge: #dbe5ed;
+  --expert-image-overlay: #ffffffd9;
+  --hero-overlay-strong: rgba(247, 249, 251, 0.72);
+  --hero-overlay-soft: rgba(247, 249, 251, 0.12);
+  --hero-overlay-side: rgba(247, 249, 251, 0.94);
+  --hero-glow: rgba(43, 115, 183, 0.12);
+}
+
+.theme-dark-surface {
+  color-scheme: dark;
+  --theme-bg-base: #1b2845;
+  --theme-bg-alt: #1f3050;
+  --theme-bg-card: #274060;
+  --theme-bg-deep: #0d1b2a;
+  --theme-accent: #65afff;
+  --theme-accent-2: #5899e2;
+  --theme-text-primary: #f0f4f8;
+  --theme-text-secondary: #a8bfd3;
+  --theme-text-tertiary: #6f8ca5;
+  --theme-border-card: #335c81;
+  --color-on-accent: #0d1b2a;
+}
+
+.theme-icon-dark {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-icon-light {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-icon-dark {
+  display: block;
 }
 
 html {
   scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--color-dark-navy);
-  color: var(--color-off-white);
-  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv01";
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.font-sans {
-  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+/* Дисплейный шрифт: широкий гротеск — нужен компактный leading и лёгкий минус-трекинг */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  line-height: 1.08;
 }
 
-.font-serif {
-  font-family: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+h1,
+h2 {
+  text-wrap: balance;
 }
 
 ::selection {
-  background: var(--color-crimson);
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-bg-deep);
 }
 
-/* Контейнер как в pencil-new.pen: артборд 1440, боковые поля 80px */
+/* ---------- Контейнер ---------- */
 .page-container {
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
   width: 100%;
-  max-width: 1440px;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  max-width: 1280px;
+  padding-inline: 1.5rem;
 }
-
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .page-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-inline: 2.5rem;
+  }
+}
+@media (min-width: 1280px) {
+  .page-container {
+    padding-inline: 4rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .page-container {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-}
-
-/* Секции в .pen: padding 80 → py-20 (5rem) на десктопе */
+/* ---------- Вертикальный ритм секций ---------- */
 .section-y {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-block: 5rem;
 }
-
 @media (min-width: 768px) {
   .section-y {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-block: 7rem;
   }
 }
-
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .section-y {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-block: 8.5rem;
   }
 }
 
-/* Футер в .pen: вертикаль 60px */
-.section-y-footer {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
+/* ---------- Кнопки ---------- */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-radius: 0.7rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.25s ease, background-color 0.25s ease,
+      border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
 
-@media (min-width: 1024px) {
-  .section-y-footer {
-    padding-top: 3.75rem;
-    padding-bottom: 3.75rem;
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: 0 10px 30px -8px color-mix(in srgb, var(--color-accent) 50%, transparent);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    background-color: color-mix(in srgb, var(--color-accent) 86%, white);
+    box-shadow: 0 16px 38px -8px color-mix(in srgb, var(--color-accent) 65%, transparent);
+  }
+
+  .btn-ghost {
+    background-color: color-mix(in srgb, var(--color-text-primary) 4%, transparent);
+    color: var(--color-text-primary);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+  }
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+
+  .btn-sm {
+    padding: 0.65rem 1.35rem;
+    font-size: 0.875rem;
+  }
+
+  /* Eyebrow (надзаголовок) */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
   }
 }
 
+/* ---------- Lenis ---------- */
 html.lenis,
 html.lenis body {
   height: auto;
 }
-
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
 .lenis.lenis-stopped {
   overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,80 +1,109 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-/* Градиент и геометрия как в pencil-new.pen → Hero Section (h 900, контент x 80 y 280) */
-const heroOverlay =
-  "linear-gradient(180deg, #2B2D42 0%, rgba(43,45,66,0) 50%, rgba(43,45,66,0.8) 100%)";
+const stats = [
+  { value: "80+", label: "лет истории" },
+  { value: "30 000+", label: "наименований" },
+  { value: "60+", label: "стран присутствия" },
+  { value: "<10 г/л", label: "VOC (ЛОС)" },
+];
+
+const fade = (delay: number) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as const },
+});
 
 export default function Hero() {
   return (
-    <section className="relative h-[min(900px,100svh)] min-h-[640px] overflow-hidden bg-dark-navy pt-20">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-bg-base">
+      {/* Фон — фото интерьера */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80')" }}
-      >
-        <div className="absolute inset-0" style={{ background: heroOverlay }} />
-      </div>
+        className="absolute inset-0 bg-cover bg-center transition-opacity duration-500"
+        style={{
+          backgroundImage: "url('/img/hero-interior.jpg')",
+        }}
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg,var(--hero-overlay-strong) 0%,var(--hero-overlay-soft) 45%,var(--hero-overlay-strong) 100%)",
+        }}
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(90deg,var(--hero-overlay-strong) 0%,var(--hero-overlay-side) 42%,transparent 68%)",
+        }}
+        aria-hidden
+      />
+      <div
+        className="absolute -left-20 top-1/4 h-[420px] w-[420px] rounded-full blur-3xl"
+        style={{ background: "var(--hero-glow)" }}
+        aria-hidden
+      />
 
-      <div className="relative z-10 page-container pb-24">
-        <div className="flex max-w-[800px] flex-col gap-6 pt-16 md:pt-24 lg:pt-[200px]">
+      <div className="page-container relative z-10 w-full pt-32 pb-20">
+        <div className="flex max-w-[820px] flex-col gap-7">
           <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-[12px] font-medium tracking-[5px] text-crimson"
+            {...fade(0.1)}
+            className="eyebrow w-fit rounded-full border border-accent/25 bg-accent/[0.07] px-4 py-2"
           >
-            TEX-COLOR GENESIS
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            Немецкое качество с 1942 года
           </motion.span>
 
           <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="font-serif text-5xl font-medium leading-none text-off-white md:text-6xl lg:text-[80px]"
-            style={{ letterSpacing: "-2px" }}
+            {...fade(0.22)}
+            className="font-display text-[clamp(2rem,5.4vw,3.75rem)] font-bold text-text-primary"
           >
-            Цвет, который
-            <br />
-            чувствуешь
+            Безупречные{" "}
+            <span className="text-accent">покрытия</span>
+            <span className="mt-1 block font-medium text-text-primary/45">
+              для интерьера
+            </span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="max-w-[600px] text-[18px] leading-[1.6] text-steel-blue"
+            {...fade(0.36)}
+            className="max-w-[560px] text-[clamp(1rem,1.4vw,1.2rem)] leading-[1.6] text-text-secondary"
           >
-            Профессиональные интерьерные краски премиум-класса.
-            <br />
-            Глубина цвета и безупречная текстура.
+            Профессиональные краски tex-color Genesis — локализация немецких
+            рецептур для профессионального применения.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.1 }}
-            className="flex flex-wrap items-center gap-4"
-          >
-            <a
-              href="#contact"
-              className="bg-crimson px-10 py-4 text-[14px] font-semibold tracking-wide text-white transition-all duration-300 hover:bg-deep-red"
-            >
-              Получить бесплатно
+          <motion.div {...fade(0.5)} className="flex flex-wrap items-center gap-3.5">
+            <a href="#contact" className="btn btn-primary">
+              Получить веер бесплатно
+              <ArrowRight size={17} />
             </a>
-            <a
-              href="#products"
-              className="border border-off-white px-10 py-4 text-[14px] font-semibold tracking-wide text-off-white transition-all duration-300 hover:bg-off-white/5"
-            >
+            <a href="#products" className="btn btn-ghost">
               Каталог
             </a>
           </motion.div>
-        </div>
-      </div>
 
-      <div className="absolute bottom-[100px] left-1/2 flex w-10 -translate-x-1/2 flex-col items-center gap-2">
-        <div className="h-[30px] w-px bg-off-white/50" />
-        <span className="text-[9px] font-medium tracking-[3px] text-off-white/50">SCROLL</span>
+          <motion.dl
+            {...fade(0.64)}
+            className="mt-6 grid max-w-[640px] grid-cols-2 gap-x-10 gap-y-7 border-t border-accent/15 pt-8 sm:grid-cols-4"
+          >
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col gap-1.5">
+                <dt className="whitespace-nowrap font-display text-[clamp(1.3rem,2.2vw,1.8rem)] font-bold text-accent">
+                  {s.value.replace(" ", " ")}
+                </dt>
+                <dd className="text-[13px] leading-snug text-text-secondary">
+                  {s.label}
+                </dd>
+              </div>
+            ))}
+          </motion.dl>
+        </div>
       </div>
     </section>
   );

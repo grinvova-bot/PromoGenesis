@@ -1,142 +1,135 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Search } from "lucide-react";
+import { useMemo, useState } from "react";
+import { paletteColors, type Collection } from "@/data/palette";
+import ColorVisualizer from "./ColorVisualizer";
+import Reveal from "./Reveal";
 
-type ColorSwatch = { code: string; label: string; hex: string };
-type ColorGroup = { name: string; colors: ColorSwatch[] };
+type Filter = "all" | Collection;
 
-const colorGroups: ColorGroup[] = [
-  {
-    name: "Тихие истины",
-    colors: [
-      { code: "TN100", label: "Тень отражения", hex: "#D5C8B8" },
-      { code: "TG306", label: "Луч на опушке", hex: "#8B9E6B" },
-      { code: "TG301", label: "Изумрудный вздох", hex: "#2D5A4E" },
-      { code: "TR403", label: "Шерсть ламы", hex: "#C4A882" },
-      { code: "TN102", label: "Фон тишины", hex: "#E8E0D5" },
-      { code: "TY502", label: "Тень ущелья", hex: "#5A4A3C" },
-      { code: "TY500", label: "Верблюжий плед", hex: "#D4C4A8" },
-      { code: "TN101", label: "Кавычки тумана", hex: "#DDDAD4" },
-      { code: "TN104", label: "Песок времени", hex: "#C8B99A" },
-      { code: "TG303", label: "Утро в мае", hex: "#7BA47A" },
-      { code: "TN106", label: "Полутон ощущения", hex: "#B8AFA4" },
-      { code: "TB201", label: "Полночное признание", hex: "#1E2A40" },
-      { code: "TR402", label: "Глубина очага", hex: "#8B3A3A" },
-      { code: "TG302", label: "Влажная олива", hex: "#6B7A52" },
-      { code: "TN107", label: "Пыль воспоминаний", hex: "#ADA59B" },
-      { code: "TN110", label: "Шёлк тумана", hex: "#C8C2BA" },
-    ],
-  },
-  {
-    name: "Горные сонеты",
-    colors: [
-      { code: "TG306", label: "Луч на опушке", hex: "#8B9E6B" },
-      { code: "TG301", label: "Изумрудный вздох", hex: "#2D5A4E" },
-      { code: "TG303", label: "Утро в мае", hex: "#7BA47A" },
-      { code: "TG302", label: "Влажная олива", hex: "#6B7A52" },
-      { code: "TR403", label: "Шерсть ламы", hex: "#C4A882" },
-      { code: "TY502", label: "Тень ущелья", hex: "#5A4A3C" },
-      { code: "TY500", label: "Верблюжий плед", hex: "#D4C4A8" },
-      { code: "TB201", label: "Полночное признание", hex: "#1E2A40" },
-      { code: "TR402", label: "Глубина очага", hex: "#8B3A3A" },
-    ],
-  },
+const filters: { value: Filter; label: string }[] = [
+  { value: "all", label: "Все" },
+  { value: "quiet", label: "Тихие истины" },
+  { value: "mountain", label: "Горные сонеты" },
 ];
 
-function chunkArray<T>(arr: T[], size: number): T[][] {
-  const result: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) result.push(arr.slice(i, i + size));
-  return result;
-}
-
 export default function ColorPalette() {
-  const [activeGroup, setActiveGroup] = useState(0);
-  const [hoveredColor, setHoveredColor] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState<Filter>("all");
+  const [query, setQuery] = useState("");
 
-  const rows = chunkArray(colorGroups[activeGroup].colors, 6);
+  const filteredColors = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase("ru");
+
+    return paletteColors.filter((color) => {
+      const matchesFilter =
+        activeFilter === "all" || color.collection === activeFilter;
+      const matchesQuery =
+        normalizedQuery.length === 0 ||
+        `${color.code} ${color.name}`
+          .toLocaleLowerCase("ru")
+          .includes(normalizedQuery);
+
+      return matchesFilter && matchesQuery;
+    });
+  }, [activeFilter, query]);
 
   return (
-    <section
-      id="palette"
-      className="bg-dark-navy section-y transition-colors duration-700"
-      style={{ backgroundColor: hoveredColor ? `${hoveredColor}22` : undefined }}
-    >
-      <div className="page-container flex flex-col gap-12">
-        <header className="flex flex-col items-center gap-3 text-center">
-          <span className="text-[12px] font-medium tracking-[4px] text-crimson">ЦВЕТОВАЯ ПАЛИТРА</span>
-          <h2 className="font-serif text-4xl font-medium text-off-white md:text-[48px] md:leading-none">Литера Чувств</h2>
-          <p className="max-w-xl text-[16px] text-steel-blue">Интерактивный селектор цветов для вашего проекта</p>
-        </header>
+    <section id="palette" className="bg-bg-alt section-y">
+      <div className="page-container flex flex-col gap-10">
+        <Reveal className="flex flex-col items-center gap-5 text-center">
+          <span className="eyebrow">Палитра</span>
+          <h2 className="font-display text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold text-text-primary">
+            Цветовая палитра «ЛИТЕРА ЧУВСТВ»
+          </h2>
+          <p className="max-w-2xl text-[17px] leading-[1.6] text-text-secondary">
+            Полная коллекция оттенков Genesis: «Тихие истины» и «Горные
+            сонеты».
+          </p>
+        </Reveal>
 
-        {/* Табы: gap 24, padding 10×24 как в .pen */}
-        <div className="flex flex-wrap justify-center gap-6">
-          {colorGroups.map((group, i) => (
-            <button
-              key={group.name}
-              type="button"
-              onClick={() => setActiveGroup(i)}
-              className={`px-6 py-2.5 text-[13px] font-medium transition-colors duration-300 ${
-                activeGroup === i ? "bg-crimson text-pure-white" : "border border-border-subtle text-steel-blue hover:border-off-white/40 hover:text-off-white"
-              }`}
-            >
-              {group.name}
-            </button>
-          ))}
-        </div>
+        <Reveal className="mx-auto flex w-full max-w-4xl flex-col gap-5">
+          <label className="relative block">
+            <Search
+              size={19}
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary"
+            />
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Поиск по коду или названию цвета"
+              className="w-full rounded-xl border border-border-card/60 bg-bg-card py-3.5 pl-12 pr-4 text-[15px] text-text-primary outline-none transition-colors placeholder:text-text-tertiary focus:border-accent"
+            />
+          </label>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeGroup}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col gap-4"
-          >
-            {rows.map((row, rowIdx) => (
-              <div
-                key={rowIdx}
-                className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-6"
-              >
-                {row.map((color) => (
-                  <button
-                    key={`${activeGroup}-${color.code}-${rowIdx}`}
-                    type="button"
-                    className="group w-full text-left"
-                    onMouseEnter={() => setHoveredColor(color.hex)}
-                    onMouseLeave={() => setHoveredColor(null)}
-                  >
+          <div className="flex flex-wrap justify-center gap-2.5">
+            {filters.map((filter) => {
+              const selected = activeFilter === filter.value;
+
+              return (
+                <button
+                  key={filter.value}
+                  type="button"
+                  onClick={() => setActiveFilter(filter.value)}
+                  className={`rounded-full border px-4 py-2 text-[14px] font-medium transition-colors ${
+                    selected
+                      ? "border-accent bg-accent text-bg-deep"
+                      : "border-border-card/60 bg-bg-card text-text-secondary hover:border-accent/60 hover:text-text-primary"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        {filteredColors.length > 0 ? (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-6">
+            {filteredColors.map((color, index) => (
+              <Reveal key={color.code} index={index % 6} as="article" className="h-full">
+                <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/70 bg-[#f4f4f2] shadow-[0_8px_24px_-14px_#00000070] transition-all duration-300 hover:-translate-y-1 hover:border-white">
+                  <div className="aspect-square p-2.5">
                     <div
-                      className="relative mb-2 flex h-20 w-full items-end pb-2 pl-3 transition-transform duration-300 group-hover:scale-[1.02]"
+                      className="h-full w-full rounded-lg border border-black/5 transition-transform duration-500 group-hover:scale-[1.02]"
                       style={{ backgroundColor: color.hex }}
-                    >
-                      <span
-                        className={`text-[10px] font-medium tracking-wide ${
-                          parseInt(color.hex.slice(1, 3), 16) > 200 ? "text-dark-navy" : "text-pure-white"
-                        }`}
-                      >
-                        {color.code}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-steel-blue opacity-0 transition-opacity group-hover:opacity-100">{color.label}</span>
-                  </button>
-                ))}
-              </div>
+                      aria-label={`${color.code} ${color.name}, цвет ${color.hex}`}
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col gap-1 border-t border-black/8 px-4 py-3.5">
+                    <span className="text-[12px] font-semibold tracking-[0.12em] text-[#315f91]">
+                      {color.code}
+                    </span>
+                    <h3 className="text-[14px] font-medium leading-[1.35] text-[#1b2845]">
+                      {color.name}
+                    </h3>
+                    <span className="mt-1 text-[11px] font-medium tracking-[0.08em] text-[#66727f]">
+                      {color.hex}
+                    </span>
+                  </div>
+                </article>
+              </Reveal>
             ))}
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-border-card/40 bg-bg-card px-6 py-12 text-center text-[15px] text-text-secondary">
+            Цвета по вашему запросу не найдены.
+          </div>
+        )}
 
-        <div className="flex justify-center pt-4">
-          <a
-            href="https://www.tex-color.pro/images/docs/Catalog_Image_TexColor.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-off-white px-10 py-4 text-[14px] font-semibold tracking-wide text-off-white transition-colors duration-300 hover:bg-off-white/10"
-          >
-            Скачать каталог
-          </a>
-        </div>
+        <Reveal className="flex flex-col items-center gap-4 text-center">
+          <p className="max-w-2xl text-[13px] leading-[1.6] text-text-tertiary">
+            Цветопередача зависит от настроек экрана. Для точного выбора
+            используйте физический веер или выкрас.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <ColorVisualizer />
+            <a href="#contact" className="btn btn-primary">
+              Получить веер бесплатно
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

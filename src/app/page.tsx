@@ -1,7 +1,10 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import About from "@/components/About";
 import Products from "@/components/Products";
-import BentoFeatures from "@/components/BentoFeatures";
+import Advantages from "@/components/Advantages";
+import Interiors from "@/components/Interiors";
+import History from "@/components/History";
 import ExpertTestimonial from "@/components/ExpertTestimonial";
 import ColorPalette from "@/components/ColorPalette";
 import ContactCTA from "@/components/ContactCTA";
@@ -13,10 +16,13 @@ export default function Home() {
       <Navigation />
       <main>
         <Hero />
+        <About />
         <Products />
-        <BentoFeatures />
-        <ExpertTestimonial />
+        <Advantages />
+        <Interiors />
         <ColorPalette />
+        <History />
+        <ExpertTestimonial />
         <ContactCTA />
       </main>
       <Footer />
