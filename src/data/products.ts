@@ -53,6 +53,13 @@ export type ProductSpec = {
   dryTime: string;
   base: string;
   packaging: Packaging[];
+  calculator?: {
+    defaultWalls?: boolean;
+    defaultCeiling?: boolean;
+    allowWalls?: boolean;
+    allowCeiling?: boolean;
+    priceNote?: string;
+  };
   shopUrl: string;
   colorTryOn: boolean;
   content: ProductContent;
@@ -125,6 +132,13 @@ export const products: ProductSpec[] = [
       { volumeL: 2.5, priceRub: 5220 },
       { volumeL: 9, priceRub: 16930 },
     ],
+    calculator: {
+      defaultWalls: false,
+      defaultCeiling: true,
+      allowWalls: true,
+      allowCeiling: true,
+      priceNote: "Подбор фасовок и цена рассчитаны для базы 1.",
+    },
     shopUrl: "https://pro.alt-x.ru/shop/tex-color/genesis-decker/",
     colorTryOn: true,
     content: {
@@ -155,7 +169,7 @@ export const products: ProductSpec[] = [
         },
         spray: {
           title: "Безвоздушное распыление",
-          image: "/products-detail/ill/spray-apply.jpg",
+          image: "/products-detail/ill/decker-spray-ceiling.webp",
           steps: [
             "Один слой толщиной 200–300 мкм.",
             "Сопло 0,010–0,015 дюйма, угол распыления 40–60°.",
@@ -265,6 +279,13 @@ export const products: ProductSpec[] = [
       { volumeL: 2.5, priceRub: 6040 },
       { volumeL: 9, priceRub: 19480 },
     ],
+    calculator: {
+      defaultWalls: true,
+      defaultCeiling: false,
+      allowWalls: true,
+      allowCeiling: false,
+      priceNote: "Подбор фасовок и цена рассчитаны для базы 1. Для базы 3 стоимость отличается.",
+    },
     shopUrl: "https://pro.alt-x.ru/shop/tex-color/genesis-starke-farbe/",
     colorTryOn: true,
     content: {
@@ -289,7 +310,7 @@ export const products: ProductSpec[] = [
       application: {
         roller: {
           title: "Нанесение валиком",
-          image: "/products-detail/ill/roller-apply.jpg",
+          image: "/products-detail/ill/starke-farbe-roller-wall.webp",
           steps: [
             "Тщательно перемешать краску перед применением.",
             "Для заявленных свойств наносить в два слоя или не менее 200 мкм суммарно.",

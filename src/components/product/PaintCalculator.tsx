@@ -19,13 +19,15 @@ const rub = (n: number) =>
   n.toLocaleString("ru-RU", { maximumFractionDigits: 0 });
 
 export default function PaintCalculator({ p }: { p: ProductSpec }) {
+  const allowWalls = p.calculator?.allowWalls ?? true;
+  const allowCeiling = p.calculator?.allowCeiling ?? true;
   const [areaMode, setAreaMode] = useState<AreaMode>("direct");
   const [areaInput, setAreaInput] = useState(30);
   const [length, setLength] = useState(4);
   const [width, setWidth] = useState(3);
   const [height, setHeight] = useState(2.7);
-  const [walls, setWalls] = useState(true);
-  const [ceiling, setCeiling] = useState(false);
+  const [walls, setWalls] = useState(p.calculator?.defaultWalls ?? true);
+  const [ceiling, setCeiling] = useState(p.calculator?.defaultCeiling ?? false);
   const [deduct, setDeduct] = useState(0);
   const [coats, setCoats] = useState(p.defaultCoats);
   const [surface, setSurface] = useState<SurfaceType>("smooth");
@@ -69,6 +71,10 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
         ? "border-accent bg-accent text-on-accent"
         : "border-border-card/60 bg-bg-card text-text-secondary hover:border-accent/50"
     }`;
+  const setApplicationMethod = (next: Method) => {
+    setMethod(next);
+    setCoats(next === "spray" ? 1 : p.defaultCoats);
+  };
 
   return (
     <section id="calc" className="bg-bg-alt section-y scroll-mt-24">
@@ -112,10 +118,16 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
                     ),
                   )}
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  <button type="button" aria-pressed={walls} className={chip(walls)} onClick={() => setWalls((v) => !v)}>Стены</button>
-                  <button type="button" aria-pressed={ceiling} className={chip(ceiling)} onClick={() => setCeiling((v) => !v)}>Потолок</button>
-                </div>
+                {allowWalls && allowCeiling ? (
+                  <div className="flex flex-wrap gap-2">
+                    <button type="button" aria-pressed={walls} className={chip(walls)} onClick={() => setWalls((v) => !v)}>Стены</button>
+                    <button type="button" aria-pressed={ceiling} className={chip(ceiling)} onClick={() => setCeiling((v) => !v)}>Потолок</button>
+                  </div>
+                ) : (
+                  <p className="text-[13px] text-text-tertiary">
+                    Расчёт по {allowCeiling ? "потолку" : "стенам"}.
+                  </p>
+                )}
                 <label className="flex flex-col gap-1.5">
                   <span className="text-[13px] text-text-secondary">Вычесть окна/двери, м²</span>
                   <input type="number" min={0} value={deduct} onChange={(e) => setDeduct(+e.target.value)} className={fieldCls} />
@@ -140,8 +152,8 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
             <div className="flex flex-col gap-2">
               <span className="text-[13px] text-text-secondary">Способ нанесения</span>
               <div className="flex flex-wrap gap-2">
-                <button type="button" aria-pressed={method === "roller"} className={chip(method === "roller")} onClick={() => setMethod("roller")}>Валик</button>
-                <button type="button" aria-pressed={method === "spray"} className={chip(method === "spray")} onClick={() => setMethod("spray")}>Распыление</button>
+                <button type="button" aria-pressed={method === "roller"} className={chip(method === "roller")} onClick={() => setApplicationMethod("roller")}>Валик</button>
+                <button type="button" aria-pressed={method === "spray"} className={chip(method === "spray")} onClick={() => setApplicationMethod("spray")}>Распыление</button>
               </div>
             </div>
 
@@ -178,6 +190,9 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
               <p className="text-[12px] text-text-tertiary">
                 {fmt(pack.totalL)} л в наборе · остаток ≈ {fmt(pack.leftoverL)} л
               </p>
+              {p.calculator?.priceNote && (
+                <p className="text-[12px] text-text-tertiary">{p.calculator.priceNote}</p>
+              )}
             </div>
 
             <a href={p.shopUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary justify-center">
