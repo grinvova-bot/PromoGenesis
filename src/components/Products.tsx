@@ -63,7 +63,7 @@ const products: Product[] = [
     imageWidth: 260,
     imageHeight: 202,
     specs: [
-      { label: "Блеск", value: "1-2%" },
+      { label: "Блеск", value: "1–2%" },
       { label: "Истир.", value: "1 кл." },
       { label: "Расход", value: "12 м²/л" },
     ],
