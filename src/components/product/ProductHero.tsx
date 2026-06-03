@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calculator, FileText } from "lucide-react";
+import { ArrowRight, Calculator } from "lucide-react";
 import type { ProductSpec } from "@/data/products";
 
 export default function ProductHero({ p }: { p: ProductSpec }) {
@@ -48,15 +48,6 @@ export default function ProductHero({ p }: { p: ProductSpec }) {
             >
               Купить
               <ArrowRight size={16} />
-            </a>
-            <a
-              href={p.datasheetUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-ghost"
-            >
-              <FileText size={16} />
-              Даташит PDF
             </a>
           </div>
 

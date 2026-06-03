@@ -42,7 +42,6 @@ export type ProductSpec = {
   base: string;
   packaging: Packaging[];
   shopUrl: string;
-  datasheetUrl: string;
   colorTryOn: boolean;
   content: ProductContent;
 };
@@ -115,7 +114,6 @@ export const products: ProductSpec[] = [
       { volumeL: 9, priceRub: 16930 },
     ],
     shopUrl: "https://pro.alt-x.ru/shop/tex-color/genesis-decker/",
-    datasheetUrl: "https://www.tex-color.pro/images/docs/Genesis%20Decker.pdf",
     colorTryOn: true,
     content: {
       matte: {
