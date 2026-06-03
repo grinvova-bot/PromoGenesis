@@ -11,16 +11,16 @@ const scenes = [
   {
     id: "living",
     label: "Гостиная",
-    image: "/visualizer/living-foreground-v2.webp",
-    lighting: null,
-    alt: "Гостиная с прозрачным фоном стены",
+    image: "/visualizer/living-foreground-v4.webp",
+    lighting: "/visualizer/living-lighting-v4.webp",
+    alt: "Гостиная с окрашиваемой стеной",
   },
   {
     id: "bedroom",
     label: "Спальня",
-    image: "/visualizer/bedroom-foreground-v2.webp",
-    lighting: null,
-    alt: "Спальня с прозрачным фоном стены",
+    image: "/visualizer/bedroom-foreground-v4.webp",
+    lighting: "/visualizer/bedroom-lighting-v4.webp",
+    alt: "Спальня с окрашиваемой стеной",
   },
   {
     id: "office",
@@ -32,16 +32,16 @@ const scenes = [
   {
     id: "kids",
     label: "Детская",
-    image: "/visualizer/kids-foreground-v2.webp",
-    lighting: null,
-    alt: "Детская с прозрачным фоном стены",
+    image: "/visualizer/kids-foreground-v4.webp",
+    lighting: "/visualizer/kids-lighting-v4.webp",
+    alt: "Детская с окрашиваемой стеной",
   },
   {
     id: "kitchen",
     label: "Кухня",
-    image: "/visualizer/kitchen-foreground-v2.webp",
-    lighting: null,
-    alt: "Кухня с прозрачным фоном стены",
+    image: "/visualizer/kitchen-foreground-v4.webp",
+    lighting: "/visualizer/kitchen-lighting-v4.webp",
+    alt: "Кухня с окрашиваемой стеной",
   },
 ] as const;
 
@@ -137,12 +137,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
 
           <div
             className="relative isolate aspect-[3/2] overflow-hidden rounded-xl shadow-inner transition-colors duration-300"
-            style={{
-              backgroundColor: selectedColor.hex,
-              backgroundImage: selectedScene.lighting
-                ? undefined
-                : "linear-gradient(105deg, rgba(255,255,255,0.2) 0%, transparent 35%, rgba(0,0,0,0.08) 100%)",
-            }}
+            style={{ backgroundColor: selectedColor.hex }}
           >
             {selectedScene.lighting && (
               <Image
