@@ -1,6 +1,23 @@
 import type { Consumption, Packaging } from "@/lib/paint-calc";
 
 export type SpecRow = { label: string; value: string };
+export type HeroStat = { value: string; label: string };
+export type ApplicationMethod = { title: string; image: string; steps: string[] };
+export type PrimingStep = { title: string; detail: string };
+
+/** Богатый контент карточки продукта (разобранный даташит) */
+export type ProductContent = {
+  /** «Глубокий мат» — ключевая фишка, с иллюстрациями */
+  matte: { image: string; macroImage: string; title: string; body: string; points: string[] };
+  application: { roller: ApplicationMethod; spray: ApplicationMethod };
+  priming: { intro: string; steps: PrimingStep[]; tempNote: string };
+  drying: { betweenCoats: string; fullCure: string; conditions: string };
+  consumptionNote: string;
+  composition: string;
+  cleanup: string;
+  storage: string;
+  safety: string;
+};
 
 export type ProductSpec = {
   slug: string;
@@ -11,6 +28,7 @@ export type ProductSpec = {
   heroImage: string;
   imageWidth: number;
   imageHeight: number;
+  heroStats: HeroStat[];
   features: string[];
   surfaces: string[];
   specs: SpecRow[];
@@ -26,6 +44,7 @@ export type ProductSpec = {
   shopUrl: string;
   datasheetUrl: string;
   colorTryOn: boolean;
+  content: ProductContent;
 };
 
 export const products: ProductSpec[] = [
@@ -36,8 +55,14 @@ export const products: ProductSpec[] = [
     category: "краска",
     badges: ["Engineered in Germany", "Экологично", "VOC <10 г/л", "Color Mix"],
     heroImage: "/products-detail/decker.jpg",
-    imageWidth: 800,
-    imageHeight: 800,
+    imageWidth: 900,
+    imageHeight: 900,
+    heroStats: [
+      { value: "3%", label: "блеск (85°)" },
+      { value: "1 кл.", label: "укрывистость" },
+      { value: "2 кл.", label: "истирание" },
+      { value: "<10", label: "VOC, г/л" },
+    ],
     features: [
       "Глубокоматовая оптика без бликов",
       "Большое открытое время на подложке",
@@ -92,6 +117,72 @@ export const products: ProductSpec[] = [
     shopUrl: "https://pro.alt-x.ru/shop/tex-color/genesis-decker/",
     datasheetUrl: "https://www.tex-color.pro/images/docs/Genesis%20Decker.pdf",
     colorTryOn: true,
+    content: {
+      matte: {
+        image: "/products-detail/ill/matte-light.jpg",
+        macroImage: "/products-detail/ill/macro-matte.jpg",
+        title: "Глубокий мат для сложного света",
+        body: "Глубокоматовая оптика — всего 3% блеска при падении света под углом 85°. Микрорельеф из мраморного наполнителя и диоксида титана рассеивает свет во все стороны: покрытие не бликует и визуально маскирует мелкие дефекты поверхности. Именно поэтому Decker идеален для потолков и стен с боковым, скользящим и сложным освещением.",
+        points: [
+          "Антибликовое покрытие без зеркальных пятен",
+          "Скрывает микронеровности шпатлёвки",
+          "Эталонная белизна и равномерность тона",
+          "Большое открытое время — нанесение без стыков",
+        ],
+      },
+      application: {
+        roller: {
+          title: "Нанесение валиком",
+          image: "/products-detail/ill/roller-apply.jpg",
+          steps: [
+            "Тщательно перемешать краску перед применением.",
+            "Первый слой — без разбавления или с добавлением чистой воды не более 10% от объёма; финишный слой — без разбавления.",
+            "Валик для воднодисперсионных красок, ворс 7–18 мм. Минимальная шагрень — синтетика (микрофибра, полиамид) 7–10 мм.",
+            "Наносить «мокрое-по-мокрому», валик держать обильно наполненным, не выжимать насухо — так не будет видимых стыков.",
+            "Финальный проход в одном направлении (сверху-вниз) — равномерная гладкость и блеск.",
+            "Минимум 2 слоя или не менее 200 мкм суммарно.",
+          ],
+        },
+        spray: {
+          title: "Безвоздушное распыление",
+          image: "/products-detail/ill/spray-apply.jpg",
+          steps: [
+            "Один слой толщиной 200–300 мкм.",
+            "Сопло 0,010–0,015 дюйма, угол распыления 40–60°.",
+            "Рабочее давление 80–120 бар.",
+            "Разбавление водой 0–5%.",
+          ],
+        },
+      },
+      priming: {
+        intro: "Для правильной работы краски на подложке соблюдайте системный подход с грунтами Genesis.",
+        steps: [
+          {
+            title: "Genesis HP — грунт-концентрат",
+            detail: "Прочные мелкопористые основания: разбавление 1:4–1:5. Средневпитывающие: 1:2–1:3. Сильновпитывающие: 1:1 или без разбавления. Добиваться однородного влажного вида, без заглянцовки «до блеска».",
+          },
+          {
+            title: "Genesis GE — изолирующая грунт-краска",
+            detail: "Для сложных оснований: неравномерное впитывание по площади, пятна, разнотипные штукатурки на одном простенке, заглянцовка подложки.",
+          },
+          {
+            title: "Без грунтования — только по качественной шпатлёвке",
+            detail: "Допустимо по правильно нанесённой полимерной финишной шпатлёвке с однородными низкими впитывающими свойствами. Пробный выкрас обязателен.",
+          },
+        ],
+        tempNote: "Грунтовочные и окрасочные работы — при температуре основания и воздуха +5…+30 °С.",
+      },
+      drying: {
+        betweenCoats: "1,5–2 часа",
+        fullCure: "28 дней",
+        conditions: "При +20 °С и влажности 65%. Наносить при +5…+30 °С, влажность воздуха ≤80%.",
+      },
+      consumptionNote: "Валик: 6–9 м²/л по неровной впитывающей поверхности; 10–12 м²/л по ровной гладкой невпитывающей. Распыление: 200–300 мл/м². На пористых шероховатых основаниях расход растёт. Точный расход определяется пробным выкрасом на объекте.",
+      composition: "Дисперсия акриловых сополимеров, микрокристаллический мраморный наполнитель, диоксид титана, вода, функциональные добавки.",
+      cleanup: "По окончании работ инструмент промыть водой или мыльным раствором.",
+      storage: "Хранить и транспортировать в плотно закрытой таре при +5…+30 °С, оберегая от влаги, тепла и прямых солнечных лучей. Гарантийный срок хранения — 36 месяцев.",
+      safety: "Во время работ и сутки после — обеспечить эффективный воздухообмен. При распылении не вдыхать пары, использовать защиту глаз и дыхания. При попадании на кожу/в глаза промыть водой. Хранить в недоступном для детей месте.",
+    },
   },
 ];
 

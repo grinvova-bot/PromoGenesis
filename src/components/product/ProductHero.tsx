@@ -59,6 +59,19 @@ export default function ProductHero({ p }: { p: ProductSpec }) {
               Даташит PDF
             </a>
           </div>
+
+          <dl className="mt-4 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-accent/15 pt-6 sm:grid-cols-4">
+            {p.heroStats.map((s) => (
+              <div key={s.label} className="flex flex-col gap-1">
+                <dt className="font-display text-[clamp(1.4rem,2.4vw,1.9rem)] font-bold text-accent">
+                  {s.value}
+                </dt>
+                <dd className="text-[13px] leading-snug text-text-secondary">
+                  {s.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

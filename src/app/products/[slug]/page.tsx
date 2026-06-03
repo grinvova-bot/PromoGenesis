@@ -2,9 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { products, getProduct } from "@/data/products";
 import ProductHero from "@/components/product/ProductHero";
+import DeepMatte from "@/components/product/DeepMatte";
 import SpecsTable from "@/components/product/SpecsTable";
 import ApplicationSystem from "@/components/product/ApplicationSystem";
+import SurfacePrep from "@/components/product/SurfacePrep";
+import ApplicationMethods from "@/components/product/ApplicationMethods";
 import PaintCalculator from "@/components/product/PaintCalculator";
+import FactsGrid from "@/components/product/FactsGrid";
 import ColorVisualizer from "@/components/ColorVisualizer";
 import ContactCTA from "@/components/ContactCTA";
 import Navigation from "@/components/Navigation";
@@ -42,9 +46,13 @@ export default async function ProductPage({
       <Navigation />
       <main>
         <ProductHero p={p} />
+        <DeepMatte p={p} />
         <SpecsTable p={p} />
         <ApplicationSystem p={p} />
+        <SurfacePrep p={p} />
+        <ApplicationMethods p={p} />
         <PaintCalculator p={p} />
+        <FactsGrid p={p} />
         {p.colorTryOn && (
           <section className="bg-bg-base section-y">
             <div className="page-container flex flex-col gap-8">

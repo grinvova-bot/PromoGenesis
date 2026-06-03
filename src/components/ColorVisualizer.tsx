@@ -26,6 +26,18 @@ const scenes = [
     image: "/visualizer/office-foreground.webp",
     alt: "Кабинет с прозрачным фоном стены",
   },
+  {
+    id: "kids",
+    label: "Детская",
+    image: "/visualizer/kids-foreground.webp",
+    alt: "Детская с прозрачным фоном стены",
+  },
+  {
+    id: "kitchen",
+    label: "Кухня",
+    image: "/visualizer/kitchen-foreground.webp",
+    alt: "Кухня с прозрачным фоном стены",
+  },
 ] as const;
 
 type Props = {
