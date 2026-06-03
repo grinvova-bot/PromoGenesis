@@ -5,7 +5,7 @@ import ProductHero from "@/components/product/ProductHero";
 import SpecsTable from "@/components/product/SpecsTable";
 import ApplicationSystem from "@/components/product/ApplicationSystem";
 import PaintCalculator from "@/components/product/PaintCalculator";
-import ColorVisualizerInline from "@/components/product/ColorVisualizerInline";
+import ColorVisualizer from "@/components/ColorVisualizer";
 import ContactCTA from "@/components/ContactCTA";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -57,7 +57,7 @@ export default async function ProductPage({
                   {p.base}
                 </p>
               </div>
-              <ColorVisualizerInline />
+              <ColorVisualizer mode="inline" />
             </div>
           </section>
         )}

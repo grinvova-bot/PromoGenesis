@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { Paintbrush, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { paletteColors, type PaletteColor } from "@/data/palette";
+import { useEffect, useState } from "react";
+import { paletteColors } from "@/data/palette";
+
+const INITIAL_COLOR = paletteColors.find((color) => color.code === "TN105")!;
 
 const scenes = [
   {
@@ -28,16 +30,11 @@ const scenes = [
 
 type Props = {
   mode?: "modal" | "inline";
-  colorFilter?: (color: PaletteColor) => boolean;
 };
 
-export default function ColorVisualizer({ mode = "modal", colorFilter }: Props) {
-  const colors = useMemo(() => {
-    const filtered = colorFilter ? paletteColors.filter(colorFilter) : paletteColors;
-    return filtered.length > 0 ? filtered : paletteColors; // фолбэк, если фильтр пуст
-  }, [colorFilter]);
+export default function ColorVisualizer({ mode = "modal" }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selectedColor, setSelectedColor] = useState(INITIAL_COLOR);
   const [selectedScene, setSelectedScene] = useState<(typeof scenes)[number]>(
     scenes[0],
   );
@@ -167,7 +164,7 @@ export default function ColorVisualizer({ mode = "modal", colorFilter }: Props) 
           data-lenis-prevent
         >
           <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-2">
-            {colors.map((color) => {
+            {paletteColors.map((color) => {
               const selected = selectedColor.code === color.code;
 
               return (
