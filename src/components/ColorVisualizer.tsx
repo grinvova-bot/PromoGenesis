@@ -12,30 +12,35 @@ const scenes = [
     id: "living",
     label: "Гостиная",
     image: "/visualizer/living-foreground-v2.webp",
+    lighting: null,
     alt: "Гостиная с прозрачным фоном стены",
   },
   {
     id: "bedroom",
     label: "Спальня",
     image: "/visualizer/bedroom-foreground-v2.webp",
+    lighting: null,
     alt: "Спальня с прозрачным фоном стены",
   },
   {
     id: "office",
     label: "Кабинет",
-    image: "/visualizer/office-foreground-v2.webp",
-    alt: "Кабинет с прозрачным фоном стены",
+    image: "/visualizer/office-foreground-v4.webp",
+    lighting: "/visualizer/office-lighting-v4.webp",
+    alt: "Кабинет с окрашиваемой стеной",
   },
   {
     id: "kids",
     label: "Детская",
     image: "/visualizer/kids-foreground-v2.webp",
+    lighting: null,
     alt: "Детская с прозрачным фоном стены",
   },
   {
     id: "kitchen",
     label: "Кухня",
     image: "/visualizer/kitchen-foreground-v2.webp",
+    lighting: null,
     alt: "Кухня с прозрачным фоном стены",
   },
 ] as const;
@@ -131,13 +136,25 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           </div>
 
           <div
-            className="relative aspect-[3/2] overflow-hidden rounded-xl shadow-inner transition-colors duration-300"
+            className="relative isolate aspect-[3/2] overflow-hidden rounded-xl shadow-inner transition-colors duration-300"
             style={{
               backgroundColor: selectedColor.hex,
-              backgroundImage:
-                "linear-gradient(105deg, rgba(255,255,255,0.2) 0%, transparent 35%, rgba(0,0,0,0.08) 100%)",
+              backgroundImage: selectedScene.lighting
+                ? undefined
+                : "linear-gradient(105deg, rgba(255,255,255,0.2) 0%, transparent 35%, rgba(0,0,0,0.08) 100%)",
             }}
           >
+            {selectedScene.lighting && (
+              <Image
+                src={selectedScene.lighting}
+                alt=""
+                aria-hidden
+                fill
+                unoptimized
+                sizes="(max-width: 1024px) 100vw, 66vw"
+                className="object-cover mix-blend-multiply"
+              />
+            )}
             <Image
               src={selectedScene.image}
               alt={selectedScene.alt}

@@ -64,9 +64,9 @@ export default function Hero() {
             className="font-display text-[clamp(2rem,5.4vw,3.75rem)] font-bold text-text-primary"
           >
             Безупречные{" "}
-            <span className="text-accent">покрытия</span>
+            <span className="text-accent">краски</span>
             <span className="mt-1 block font-medium text-text-primary/45">
-              для интерьера
+              для вашего интерьера
             </span>
           </motion.h1>
 
