@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 
-const BUY_URL = "https://pro.alt-x.ru/brand/tex-color/";
-
 type Spec = { label: string; value: string };
 type Product = {
+  slug: string;
   badge: string;
   paint: boolean;
   name: string;
@@ -20,6 +20,7 @@ type Product = {
 
 const products: Product[] = [
   {
+    slug: "decker",
     badge: "КРАСКА",
     paint: true,
     name: "Genesis Decker",
@@ -34,6 +35,7 @@ const products: Product[] = [
     ],
   },
   {
+    slug: "starke-farbe",
     badge: "КРАСКА",
     paint: true,
     name: "Genesis Starke Farbe",
@@ -48,6 +50,7 @@ const products: Product[] = [
     ],
   },
   {
+    slug: "soft-matt",
     badge: "КРАСКА",
     paint: true,
     name: "Genesis Soft Matt",
@@ -62,6 +65,7 @@ const products: Product[] = [
     ],
   },
   {
+    slug: "hp",
     badge: "ГРУНТОВКА",
     paint: false,
     name: "Genesis HP",
@@ -76,6 +80,7 @@ const products: Product[] = [
     ],
   },
   {
+    slug: "ge",
     badge: "ГРУНТОВКА",
     paint: false,
     name: "Genesis GE",
@@ -132,18 +137,16 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
               </div>
             ))}
           </dl>
-          <a
-            href={BUY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={`/products/${p.slug}/`}
             className="group/btn mt-1 flex items-center justify-between rounded-lg border border-accent/20 px-4 py-3 text-[14px] font-semibold text-text-primary transition-colors hover:border-accent/45 hover:bg-accent/10"
           >
-            Купить
+            Подробнее
             <ArrowRight
               size={16}
               className="text-accent transition-transform duration-200 group-hover/btn:translate-x-1"
             />
-          </a>
+          </Link>
         </div>
       </article>
     </Reveal>
