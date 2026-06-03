@@ -11,31 +11,31 @@ const scenes = [
   {
     id: "living",
     label: "Гостиная",
-    image: "/visualizer/living-foreground.webp",
+    image: "/visualizer/living-foreground-v2.webp",
     alt: "Гостиная с прозрачным фоном стены",
   },
   {
     id: "bedroom",
     label: "Спальня",
-    image: "/visualizer/bedroom-foreground.webp",
+    image: "/visualizer/bedroom-foreground-v2.webp",
     alt: "Спальня с прозрачным фоном стены",
   },
   {
     id: "office",
     label: "Кабинет",
-    image: "/visualizer/office-foreground.webp",
+    image: "/visualizer/office-foreground-v2.webp",
     alt: "Кабинет с прозрачным фоном стены",
   },
   {
     id: "kids",
     label: "Детская",
-    image: "/visualizer/kids-foreground.webp",
+    image: "/visualizer/kids-foreground-v2.webp",
     alt: "Детская с прозрачным фоном стены",
   },
   {
     id: "kitchen",
     label: "Кухня",
-    image: "/visualizer/kitchen-foreground.webp",
+    image: "/visualizer/kitchen-foreground-v2.webp",
     alt: "Кухня с прозрачным фоном стены",
   },
 ] as const;
