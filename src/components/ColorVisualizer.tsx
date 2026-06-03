@@ -102,7 +102,11 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
         )}
       </header>
 
-      <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.8fr)]">
+      <div
+        className={`grid min-h-0 flex-1 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.8fr)] ${
+          mode === "inline" ? "lg:h-[760px] lg:flex-none" : ""
+        }`}
+      >
         <div className="flex min-h-0 flex-col gap-4 bg-bg-alt p-4 md:p-6">
           <div className="flex flex-wrap gap-2">
             {scenes.map((scene) => {
