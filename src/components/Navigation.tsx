@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
+// Якоря ведут на главную (/#…), чтобы работать и с вложенных маршрутов (/products/…)
 const navLinks = [
-  { label: "Каталог", href: "#products" },
-  { label: "Интерьеры", href: "#interiors" },
-  { label: "Палитра", href: "#palette" },
-  { label: "Дизайнерам", href: "#expert" },
-  { label: "О бренде", href: "#about" },
-  { label: "Контакты", href: "#contact" },
+  { label: "Каталог", href: "/#products" },
+  { label: "Интерьеры", href: "/#interiors" },
+  { label: "Палитра", href: "/#palette" },
+  { label: "Дизайнерам", href: "/#expert" },
+  { label: "О бренде", href: "/#about" },
+  { label: "Контакты", href: "/#contact" },
 ];
 
 export default function Navigation() {
@@ -33,7 +34,7 @@ export default function Navigation() {
       }`}
     >
       <nav className="page-container flex h-[64px] items-center justify-between">
-        <a href="#" className="flex items-baseline gap-2" aria-label="TEX-COLOR GENESIS">
+        <a href="/" className="flex items-baseline gap-2" aria-label="TEX-COLOR GENESIS">
           <span className="font-display text-[17px] font-bold tracking-[-0.02em] text-text-primary">
             TEX-COLOR
           </span>
@@ -53,7 +54,7 @@ export default function Navigation() {
             </a>
           ))}
           <ThemeToggle />
-          <a href="#contact" className="btn btn-primary btn-sm">
+          <a href="/#contact" className="btn btn-primary btn-sm">
             Получить веер
             <ArrowRight size={16} />
           </a>
@@ -87,7 +88,7 @@ export default function Navigation() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
               className="btn btn-primary mt-2"
             >
