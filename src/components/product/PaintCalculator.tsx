@@ -66,7 +66,7 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
   const chip = (active: boolean) =>
     `rounded-full border px-3.5 py-2 text-[13px] font-medium transition-colors ${
       active
-        ? "border-accent bg-accent text-bg-deep"
+        ? "border-accent bg-accent text-on-accent"
         : "border-border-card/60 bg-bg-card text-text-secondary hover:border-accent/50"
     }`;
 

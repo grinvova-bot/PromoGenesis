@@ -74,7 +74,7 @@ export default function ColorPalette() {
                   onClick={() => setActiveFilter(filter.value)}
                   className={`rounded-full border px-4 py-2 text-[14px] font-medium transition-colors ${
                     selected
-                      ? "border-accent bg-accent text-bg-deep"
+                      ? "border-accent bg-accent text-on-accent"
                       : "border-border-card/60 bg-bg-card text-text-secondary hover:border-accent/60 hover:text-text-primary"
                   }`}
                 >
