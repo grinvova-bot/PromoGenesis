@@ -12,7 +12,7 @@ export default function DeepMatte({ p }: { p: ProductSpec }) {
           <div className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-border-card/40">
             <Image
               src={m.image}
-              alt="Глубокоматовый потолок под скользящим светом"
+              alt={m.imageAlt ?? "Глубокоматовый потолок под скользящим светом"}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
@@ -40,18 +40,17 @@ export default function DeepMatte({ p }: { p: ProductSpec }) {
           <div className="flex flex-col gap-4">
             <span className="eyebrow">Под микроскопом</span>
             <h3 className="font-display text-[clamp(1.3rem,2.2vw,1.7rem)] font-semibold text-text-primary">
-              Почему нет бликов
+              {m.macroTitle ?? "Почему нет бликов"}
             </h3>
             <p className="text-[15px] leading-[1.65] text-text-secondary">
-              Микрорельеф из мраморного наполнителя и диоксида титана рассеивает
-              падающий свет диффузно — во все стороны, а не зеркально. Глаз не
-              видит бликов, а мелкие неровности подложки визуально сглаживаются.
+              {m.macroBody ??
+                "Микрорельеф из мраморного наполнителя и диоксида титана рассеивает падающий свет диффузно — во все стороны, а не зеркально. Глаз не видит бликов, а мелкие неровности подложки визуально сглаживаются."}
             </p>
           </div>
           <div className="relative aspect-[3/2] overflow-hidden rounded-xl">
             <Image
               src={m.macroImage}
-              alt="Микроструктура глубокоматового покрытия рассеивает свет"
+              alt={m.macroAlt ?? "Микроструктура глубокоматового покрытия рассеивает свет"}
               fill
               sizes="(max-width: 1024px) 100vw, 55vw"
               className="object-cover"
