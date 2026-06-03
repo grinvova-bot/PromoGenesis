@@ -63,10 +63,9 @@ export default function Hero() {
             {...fade(0.22)}
             className="font-display text-[clamp(2rem,5.4vw,3.75rem)] font-bold text-text-primary"
           >
-            Безупречные{" "}
-            <span className="text-accent">краски</span>
-            <span className="mt-1 block font-medium text-text-primary/45">
-              для вашего интерьера
+            Идеальная поверхность.
+            <span className="mt-1 block text-accent">
+              Благородный цвет.
             </span>
           </motion.h1>
 

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "глубокоматовая краска",
   ],
   openGraph: {
-    title: "TEX-COLOR GENESIS — Безупречные краски для вашего интерьера",
+    title: "TEX-COLOR GENESIS — Идеальная поверхность. Благородный цвет.",
     description:
       "Локализация немецких рецептур для профессионального применения. Немецкое качество с 1942 года.",
     type: "website",
