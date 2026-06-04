@@ -80,9 +80,9 @@ export const products: ProductSpec[] = [
     tagline: "Глубокоматовая краска для потолков со сложным светом",
     category: "краска",
     badges: ["Engineered in Germany", "Экологично", "VOC <10 г/л", "Color Mix"],
-    heroImage: "/products-detail/decker.jpg",
-    imageWidth: 900,
-    imageHeight: 900,
+    heroImage: "/products/decker.png",
+    imageWidth: 1508,
+    imageHeight: 1172,
     heroStats: [
       { value: "3%", label: "блеск (85°)" },
       { value: "1 кл.", label: "укрывистость" },

@@ -30,8 +30,8 @@ const products: Product[] = [
     name: "Genesis Decker",
     description: "Глубокоматовая краска для потолков со сложным светом",
     image: "/products/decker.png",
-    imageWidth: 260,
-    imageHeight: 260,
+    imageWidth: 280,
+    imageHeight: 218,
     specs: [
       { label: "Блеск", value: "3%" },
       { label: "Укрыв.", value: "1 кл." },
