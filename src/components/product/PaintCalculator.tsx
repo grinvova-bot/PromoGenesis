@@ -38,6 +38,13 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
   const [surface, setSurface] = useState<SurfaceType>("smooth");
   const [method, setMethod] = useState<Method>("roller");
   const [reserve, setReserve] = useState(true);
+  const [selectedBaseId, setSelectedBaseId] = useState(
+    p.packagingByBase?.[0]?.id ?? "default",
+  );
+  const baseOptions = p.packagingByBase ?? [];
+  const selectedBase =
+    baseOptions.find((base) => base.id === selectedBaseId) ?? baseOptions[0];
+  const activePackaging = selectedBase?.packaging ?? p.packaging;
 
   const area = useMemo(
     () =>
@@ -64,8 +71,8 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
   );
 
   const pack = useMemo(
-    () => pickPackaging(result.liters, p.packaging),
-    [result.liters, p.packaging],
+    () => pickPackaging(result.liters, activePackaging),
+    [result.liters, activePackaging],
   );
 
   const fieldCls =
@@ -183,18 +190,51 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
             <div className="flex flex-col gap-2 border-t border-border-card/40 pt-4">
               <p className="text-[13px] text-text-secondary">Оптимальный набор</p>
               {pack.items.map((it) => (
-                <div key={it.volumeL} className="flex items-center justify-between text-[15px]">
-                  <span className="text-text-primary">{it.qty} × {fmt(it.volumeL)} л</span>
+                <div key={`${it.volumeL}-${it.sku ?? "no-sku"}`} className="flex items-center justify-between gap-3 text-[15px]">
+                  <span className="text-text-primary">
+                    {it.qty} × {fmt(it.volumeL)} л
+                    {it.sku && (
+                      <span className="ml-2 text-[12px] text-text-tertiary">
+                        код {it.sku}
+                      </span>
+                    )}
+                  </span>
                   <span className="text-text-secondary">{rub(it.qty * it.priceRub)} ₽</span>
                 </div>
               ))}
-              <div className="mt-1 flex items-center justify-between border-t border-border-card/40 pt-2">
+              <div className="mt-1 flex flex-col gap-2 border-t border-border-card/40 pt-2 sm:flex-row sm:items-center sm:justify-between">
                 <span className="font-semibold text-text-primary">Итого</span>
-                <span className="font-display text-[20px] font-bold text-accent">{rub(pack.totalRub)} ₽</span>
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+                  <span className="font-display text-[20px] font-bold text-accent">{rub(pack.totalRub)} ₽</span>
+                  {baseOptions.length > 1 && (
+                    <div className="flex rounded-full border border-border-card/60 bg-bg-base p-1">
+                      {baseOptions.map((base) => (
+                        <button
+                          key={base.id}
+                          type="button"
+                          aria-pressed={selectedBase?.id === base.id}
+                          className={`rounded-full px-3 py-1.5 text-[12px] font-semibold transition-colors ${
+                            selectedBase?.id === base.id
+                              ? "bg-accent text-on-accent"
+                              : "text-text-secondary hover:text-text-primary"
+                          }`}
+                          onClick={() => setSelectedBaseId(base.id)}
+                        >
+                          {base.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               <p className="text-[12px] text-text-tertiary">
                 {fmt(pack.totalL)} л в наборе · остаток ≈ {fmt(pack.leftoverL)} л
               </p>
+              {selectedBase?.description && (
+                <p className="text-[12px] text-text-tertiary">
+                  {selectedBase.label}: {selectedBase.description}
+                </p>
+              )}
               {p.calculator?.priceNote && (
                 <p className="text-[12px] text-text-tertiary">{p.calculator.priceNote}</p>
               )}

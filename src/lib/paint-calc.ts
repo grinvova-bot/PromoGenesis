@@ -70,8 +70,8 @@ export function litersNeeded(
   return { liters, litersMin, litersMax, kg: liters * density };
 }
 
-export type Packaging = { volumeL: number; priceRub: number };
-export type PackItem = { volumeL: number; qty: number; priceRub: number };
+export type Packaging = { volumeL: number; priceRub: number; sku?: string };
+export type PackItem = { volumeL: number; qty: number; priceRub: number; sku?: string };
 export type PackPick = {
   items: PackItem[];
   totalRub: number;
@@ -88,6 +88,7 @@ export function pickPackaging(liters: number, packaging: Packaging[]): PackPick 
     dl: Math.round(p.volumeL * 10),
     price: p.priceRub,
     volumeL: p.volumeL,
+    sku: p.sku,
   }));
   const target = Math.max(1, Math.ceil(liters * 10));
   const maxDl = target + Math.max(...sizes.map((s) => s.dl));
@@ -121,7 +122,12 @@ export function pickPackaging(liters: number, packaging: Packaging[]): PackPick 
   }
 
   const items: PackItem[] = sizes
-    .map((s, i) => ({ volumeL: s.volumeL, qty: counts[i], priceRub: s.price }))
+    .map((s, i) => ({
+      volumeL: s.volumeL,
+      qty: counts[i],
+      priceRub: s.price,
+      sku: s.sku,
+    }))
     .filter((it) => it.qty > 0)
     .sort((a, b) => b.volumeL - a.volumeL);
 

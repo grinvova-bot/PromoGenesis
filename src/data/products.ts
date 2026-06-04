@@ -4,6 +4,12 @@ export type SpecRow = { label: string; value: string };
 export type HeroStat = { value: string; label: string };
 export type ApplicationMethod = { title: string; image: string; steps: string[] };
 export type PrimingStep = { title: string; detail: string };
+export type PackagingBase = {
+  id: string;
+  label: string;
+  description: string;
+  packaging: Packaging[];
+};
 
 /** Богатый контент карточки продукта (разобранный даташит) */
 export type ProductContent = {
@@ -54,6 +60,7 @@ export type ProductSpec = {
   dryTime: string;
   base: string;
   packaging: Packaging[];
+  packagingByBase?: PackagingBase[];
   calculator?: {
     defaultWalls?: boolean;
     defaultCeiling?: boolean;
@@ -129,9 +136,9 @@ export const products: ProductSpec[] = [
     dryTime: "1,5–2 ч между слоями · 28 дней до полной прочности",
     base: "База 1 — колеровка в светлые пастельные оттенки по системе Color Mix",
     packaging: [
-      { volumeL: 0.9, priceRub: 1980 },
-      { volumeL: 2.5, priceRub: 5220 },
-      { volumeL: 9, priceRub: 16930 },
+      { volumeL: 0.9, priceRub: 1980, sku: "7009892" },
+      { volumeL: 2.5, priceRub: 5220, sku: "7009893" },
+      { volumeL: 9, priceRub: 16930, sku: "7009894" },
     ],
     calculator: {
       defaultWalls: false,
@@ -276,16 +283,38 @@ export const products: ProductSpec[] = [
     dryTime: "1,5–2 ч между слоями · 28 дней до полной прочности",
     base: "База 1 — светлые пастельные оттенки; база 3 — средне насыщенные и тёмные цвета по системе Color Mix",
     packaging: [
-      { volumeL: 0.9, priceRub: 2260 },
-      { volumeL: 2.5, priceRub: 6040 },
-      { volumeL: 9, priceRub: 19480 },
+      { volumeL: 0.9, priceRub: 2260, sku: "7009901" },
+      { volumeL: 2.5, priceRub: 6040, sku: "7009902" },
+      { volumeL: 9, priceRub: 19480, sku: "7009903" },
+    ],
+    packagingByBase: [
+      {
+        id: "base-1",
+        label: "База 1",
+        description: "Для белого и светлых пастельных оттенков.",
+        packaging: [
+          { volumeL: 0.9, priceRub: 2260, sku: "7009901" },
+          { volumeL: 2.5, priceRub: 6040, sku: "7009902" },
+          { volumeL: 9, priceRub: 19480, sku: "7009903" },
+        ],
+      },
+      {
+        id: "base-3",
+        label: "База 3",
+        description: "Для средне насыщенных и тёмных цветов Color Mix.",
+        packaging: [
+          { volumeL: 0.9, priceRub: 1980, sku: "7009904" },
+          { volumeL: 2.5, priceRub: 5220, sku: "7009905" },
+          { volumeL: 9, priceRub: 16900, sku: "7009906" },
+        ],
+      },
     ],
     calculator: {
       defaultWalls: true,
       defaultCeiling: false,
       allowWalls: true,
       allowCeiling: false,
-      priceNote: "Подбор фасовок и цена рассчитаны для базы 1. Для базы 3 стоимость отличается.",
+      priceNote: "Выберите базу, чтобы пересчитать стоимость по нужной колеровке.",
     },
     shopUrl: "https://pro.alt-x.ru/shop/tex-color/genesis-starke-farbe/",
     colorTryOn: true,
@@ -432,17 +461,41 @@ export const products: ProductSpec[] = [
     dryTime: "1,5–2 ч между слоями · 28 дней до полной прочности",
     base: "База 1 — светлые оттенки и применение без колеровки; база 3 — средне насыщенные и тёмные цвета по системе Color Mix",
     packaging: [
-      { volumeL: 0.4, priceRub: 1769 },
-      { volumeL: 0.9, priceRub: 2980 },
-      { volumeL: 2.5, priceRub: 7850 },
-      { volumeL: 9, priceRub: 25760 },
+      { volumeL: 0.4, priceRub: 1769, sku: "7010995" },
+      { volumeL: 0.9, priceRub: 2980, sku: "7009895" },
+      { volumeL: 2.5, priceRub: 7850, sku: "7009896" },
+      { volumeL: 9, priceRub: 25760, sku: "7009897" },
+    ],
+    packagingByBase: [
+      {
+        id: "base-1",
+        label: "База 1",
+        description: "Для белого, применения без колеровки и светлых оттенков.",
+        packaging: [
+          { volumeL: 0.4, priceRub: 1769, sku: "7010995" },
+          { volumeL: 0.9, priceRub: 2980, sku: "7009895" },
+          { volumeL: 2.5, priceRub: 7850, sku: "7009896" },
+          { volumeL: 9, priceRub: 25760, sku: "7009897" },
+        ],
+      },
+      {
+        id: "base-3",
+        label: "База 3",
+        description: "Для средне насыщенных и тёмных цветов Color Mix.",
+        packaging: [
+          { volumeL: 0.4, priceRub: 1769, sku: "7010996" },
+          { volumeL: 0.9, priceRub: 2570, sku: "7009898" },
+          { volumeL: 2.5, priceRub: 6790, sku: "7009899" },
+          { volumeL: 9, priceRub: 22050, sku: "7009900" },
+        ],
+      },
     ],
     calculator: {
       defaultWalls: true,
       defaultCeiling: false,
       allowWalls: true,
       allowCeiling: true,
-      priceNote: "Подбор фасовок и цена рассчитаны для базы 1. Для базы 3 стоимость отличается.",
+      priceNote: "Выберите базу, чтобы пересчитать стоимость по нужной колеровке.",
     },
     shopUrl: "https://pro.alt-x.ru/shop/tex-color/genesis-soft-matt/",
     colorTryOn: true,
@@ -582,8 +635,8 @@ export const products: ProductSpec[] = [
     dryTime: "2–4 ч до последующей окраски",
     base: "Прозрачный грунт-концентрат: в жидком состоянии прозрачно-опалесцирующий, после высыхания прозрачный",
     packaging: [
-      { volumeL: 5, priceRub: 3460 },
-      { volumeL: 10, priceRub: 6280 },
+      { volumeL: 5, priceRub: 3460, sku: "7009910" },
+      { volumeL: 10, priceRub: 6280, sku: "7009911" },
     ],
     calculator: {
       defaultWalls: true,
@@ -737,9 +790,9 @@ export const products: ProductSpec[] = [
     dryTime: "2–4 ч до последующей окраски",
     base: "Белая матовая грунт-краска; колеруется в ненасыщенные пастельные оттенки Color Mix как цветная подложка под малоукрывистые финишные цвета",
     packaging: [
-      { volumeL: 2.5, priceRub: 3950 },
-      { volumeL: 5, priceRub: 5950 },
-      { volumeL: 10, priceRub: 15370 },
+      { volumeL: 2.5, priceRub: 3950, sku: "7009907" },
+      { volumeL: 5, priceRub: 5950, sku: "7009908" },
+      { volumeL: 10, priceRub: 15370, sku: "7009909" },
     ],
     calculator: {
       defaultWalls: true,
