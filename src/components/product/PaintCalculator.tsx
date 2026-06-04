@@ -188,10 +188,7 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
                 </p>
               </div>
               {baseOptions.length > 1 && (
-                <div className="flex shrink-0 flex-col gap-1.5 sm:items-end">
-                  <span className="text-[12px] font-medium text-text-tertiary">
-                    База для цены
-                  </span>
+                <div className="flex shrink-0 sm:items-end">
                   <div className="flex rounded-full border border-border-card/60 bg-bg-base p-1">
                     {baseOptions.map((base) => (
                       <button
