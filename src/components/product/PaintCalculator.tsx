@@ -113,7 +113,7 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
               </label>
             ) : (
               <div className="flex flex-col gap-4">
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                   {([["Длина, м", length, setLength], ["Ширина, м", width, setWidth], ["Высота, м", height, setHeight]] as const).map(
                     ([label, val, set]) => (
                       <label key={label} className="flex flex-col gap-1.5">

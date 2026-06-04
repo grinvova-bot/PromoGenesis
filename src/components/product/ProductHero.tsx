@@ -16,7 +16,7 @@ export default function ProductHero({ p }: { p: ProductSpec }) {
             width={p.imageWidth}
             height={p.imageHeight}
             priority
-            className="h-auto max-w-[360px] object-contain drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
+            className="h-auto w-full max-w-[360px] object-contain drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
           />
         </div>
         <div className="flex flex-col gap-6">
