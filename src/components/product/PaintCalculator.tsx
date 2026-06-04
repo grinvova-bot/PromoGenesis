@@ -177,14 +177,40 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
 
           {/* Результат */}
           <div className="flex flex-col gap-5 rounded-2xl border border-accent/25 bg-bg-card p-6">
-            <div>
-              <p className="text-[13px] text-text-secondary">{amountLabel}</p>
-              <p className="font-display text-[34px] font-bold text-text-primary">
-                {fmt(result.liters)} л
-              </p>
-              <p className="text-[13px] text-text-tertiary">
-                ≈ {fmt(result.litersMin)}–{fmt(result.litersMax)} л · {fmt(result.kg)} кг
-              </p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-[13px] text-text-secondary">{amountLabel}</p>
+                <p className="font-display text-[34px] font-bold text-text-primary">
+                  {fmt(result.liters)} л
+                </p>
+                <p className="text-[13px] text-text-tertiary">
+                  ≈ {fmt(result.litersMin)}–{fmt(result.litersMax)} л · {fmt(result.kg)} кг
+                </p>
+              </div>
+              {baseOptions.length > 1 && (
+                <div className="flex shrink-0 flex-col gap-1.5 sm:items-end">
+                  <span className="text-[12px] font-medium text-text-tertiary">
+                    База для цены
+                  </span>
+                  <div className="flex rounded-full border border-border-card/60 bg-bg-base p-1">
+                    {baseOptions.map((base) => (
+                      <button
+                        key={base.id}
+                        type="button"
+                        aria-pressed={selectedBase?.id === base.id}
+                        className={`rounded-full px-3 py-1.5 text-[12px] font-semibold transition-colors ${
+                          selectedBase?.id === base.id
+                            ? "bg-accent text-on-accent"
+                            : "text-text-secondary hover:text-text-primary"
+                        }`}
+                        onClick={() => setSelectedBaseId(base.id)}
+                      >
+                        {base.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex flex-col gap-2 border-t border-border-card/40 pt-4">
@@ -204,28 +230,7 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
               ))}
               <div className="mt-1 flex flex-col gap-2 border-t border-border-card/40 pt-2 sm:flex-row sm:items-center sm:justify-between">
                 <span className="font-semibold text-text-primary">Итого</span>
-                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-                  <span className="font-display text-[20px] font-bold text-accent">{rub(pack.totalRub)} ₽</span>
-                  {baseOptions.length > 1 && (
-                    <div className="flex rounded-full border border-border-card/60 bg-bg-base p-1">
-                      {baseOptions.map((base) => (
-                        <button
-                          key={base.id}
-                          type="button"
-                          aria-pressed={selectedBase?.id === base.id}
-                          className={`rounded-full px-3 py-1.5 text-[12px] font-semibold transition-colors ${
-                            selectedBase?.id === base.id
-                              ? "bg-accent text-on-accent"
-                              : "text-text-secondary hover:text-text-primary"
-                          }`}
-                          onClick={() => setSelectedBaseId(base.id)}
-                        >
-                          {base.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <span className="font-display text-[20px] font-bold text-accent">{rub(pack.totalRub)} ₽</span>
               </div>
               <p className="text-[12px] text-text-tertiary">
                 {fmt(pack.totalL)} л в наборе · остаток ≈ {fmt(pack.leftoverL)} л
