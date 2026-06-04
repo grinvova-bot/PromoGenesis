@@ -3,16 +3,23 @@ import type { ProductSpec } from "@/data/products";
 
 export default function FactsGrid({ p }: { p: ProductSpec }) {
   const c = p.content;
+  const isPrimer = p.category === "грунт";
+  const dryingBody = isPrimer
+    ? `Следующие работы — через ${c.drying.betweenCoats}. Полное высыхание — ${c.drying.fullCure}. ${c.drying.conditions}`
+    : `Между слоями — ${c.drying.betweenCoats}. Полная прочность и влажная уборка — через ${c.drying.fullCure}. ${c.drying.conditions}`;
+  const dilutionBody =
+    c.dilutionNote ??
+    `Готова к применению. При необходимости — чистая вода не более ${p.dilutionMaxPct}% от объёма.`;
   const facts = [
     {
       icon: Clock,
       title: "Время высыхания",
-      body: `Между слоями — ${c.drying.betweenCoats}. Полная прочность и влажная уборка — через ${c.drying.fullCure}. ${c.drying.conditions}`,
+      body: dryingBody,
     },
     {
       icon: Droplets,
       title: "Разбавление",
-      body: `Готова к применению. При необходимости — чистая вода не более ${p.dilutionMaxPct}% от объёма.`,
+      body: dilutionBody,
     },
     { icon: Thermometer, title: "Расход", body: c.consumptionNote },
     { icon: FlaskConical, title: "Состав", body: c.composition },

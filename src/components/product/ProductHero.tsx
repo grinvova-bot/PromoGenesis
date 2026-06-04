@@ -4,6 +4,8 @@ import { ArrowRight, Calculator, Palette } from "lucide-react";
 import type { ProductSpec } from "@/data/products";
 
 export default function ProductHero({ p }: { p: ProductSpec }) {
+  const materialAccusative = p.category === "грунт" ? "грунт" : "краску";
+
   return (
     <section className="bg-bg-base section-y">
       <div className="page-container grid items-center gap-12 lg:grid-cols-2">
@@ -39,7 +41,7 @@ export default function ProductHero({ p }: { p: ProductSpec }) {
             <div className="flex flex-wrap items-center gap-3">
               <Link href="#calc" className="btn btn-primary">
                 <Calculator size={17} />
-                Рассчитать краску
+                Рассчитать {materialAccusative}
               </Link>
               {p.colorTryOn && (
                 <Link href="#try-on" className="btn btn-ghost">

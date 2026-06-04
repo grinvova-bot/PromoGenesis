@@ -19,6 +19,11 @@ const rub = (n: number) =>
   n.toLocaleString("ru-RU", { maximumFractionDigits: 0 });
 
 export default function PaintCalculator({ p }: { p: ProductSpec }) {
+  const isPrimer = p.category === "грунт";
+  const areaPurpose = isPrimer ? "обработки" : "окраски";
+  const amountLabel = isPrimer ? "Потребуется грунта" : "Потребуется краски";
+  const calcTitle = isPrimer ? "Сколько грунта нужно" : "Сколько краски нужно";
+  const coatLabel = isPrimer ? "Проходов" : "Слоёв";
   const allowWalls = p.calculator?.allowWalls ?? true;
   const allowCeiling = p.calculator?.allowCeiling ?? true;
   const [areaMode, setAreaMode] = useState<AreaMode>("direct");
@@ -82,10 +87,10 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
         <div className="flex flex-col gap-4">
           <span className="eyebrow">Калькулятор</span>
           <h2 className="font-display text-[clamp(1.5rem,2.8vw,2.15rem)] font-bold text-text-primary">
-            Сколько краски нужно
+            {calcTitle}
           </h2>
           <p className="max-w-xl text-[16px] text-text-secondary">
-            Расчёт ориентировочный. Точный расход определяется пробным выкрасом.
+            Расчёт ориентировочный. Точный расход определяется пробным {isPrimer ? "нанесением" : "выкрасом"}.
           </p>
         </div>
 
@@ -103,7 +108,7 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
 
             {areaMode === "direct" ? (
               <label className="flex flex-col gap-1.5">
-                <span className="text-[13px] text-text-secondary">Площадь окраски, м²</span>
+                <span className="text-[13px] text-text-secondary">Площадь {areaPurpose}, м²</span>
                 <input type="number" min={0} value={areaInput} onChange={(e) => setAreaInput(+e.target.value)} className={fieldCls} />
               </label>
             ) : (
@@ -132,12 +137,12 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
                   <span className="text-[13px] text-text-secondary">Вычесть окна/двери, м²</span>
                   <input type="number" min={0} value={deduct} onChange={(e) => setDeduct(+e.target.value)} className={fieldCls} />
                 </label>
-                <p className="text-[13px] text-text-tertiary">Площадь окраски: <b className="text-text-primary">{fmt(area)} м²</b></p>
+                <p className="text-[13px] text-text-tertiary">Площадь {areaPurpose}: <b className="text-text-primary">{fmt(area)} м²</b></p>
               </div>
             )}
 
             <label className="flex flex-col gap-1.5">
-              <span className="text-[13px] text-text-secondary">Слоёв: {coats}</span>
+              <span className="text-[13px] text-text-secondary">{coatLabel}: {coats}</span>
               <input type="range" min={1} max={3} value={coats} onChange={(e) => setCoats(+e.target.value)} className="accent-[var(--color-accent,#2b73b7)]" />
             </label>
 
@@ -166,7 +171,7 @@ export default function PaintCalculator({ p }: { p: ProductSpec }) {
           {/* Результат */}
           <div className="flex flex-col gap-5 rounded-2xl border border-accent/25 bg-bg-card p-6">
             <div>
-              <p className="text-[13px] text-text-secondary">Потребуется краски</p>
+              <p className="text-[13px] text-text-secondary">{amountLabel}</p>
               <p className="font-display text-[34px] font-bold text-text-primary">
                 {fmt(result.liters)} л
               </p>

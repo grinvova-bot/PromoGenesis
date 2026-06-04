@@ -79,8 +79,8 @@ const products: Product[] = [
     imageHeight: 202,
     specs: [
       { label: "Сухой ост.", value: "≈ 15%" },
-      { label: "Расход", value: "8-12 м²/л" },
-      { label: "Объем", value: "5л; 10л" },
+      { label: "Расход", value: "8–12 м²/л" },
+      { label: "Объем", value: "5 л; 10 л" },
     ],
   },
   {
