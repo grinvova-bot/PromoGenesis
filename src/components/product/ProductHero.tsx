@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calculator } from "lucide-react";
+import { ArrowRight, Calculator, Palette } from "lucide-react";
 import type { ProductSpec } from "@/data/products";
 
 export default function ProductHero({ p }: { p: ProductSpec }) {
@@ -35,19 +35,27 @@ export default function ProductHero({ p }: { p: ProductSpec }) {
               </li>
             ))}
           </ul>
-          <div className="mt-2 flex flex-wrap items-center gap-3">
-            <Link href="#calc" className="btn btn-primary">
-              <Calculator size={17} />
-              Рассчитать краску
-            </Link>
+          <div className="mt-2 flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <Link href="#calc" className="btn btn-primary">
+                <Calculator size={17} />
+                Рассчитать краску
+              </Link>
+              {p.colorTryOn && (
+                <Link href="#try-on" className="btn btn-ghost">
+                  <Palette size={17} />
+                  Примерка цвета
+                </Link>
+              )}
+            </div>
             <a
               href={p.shopUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-ghost"
+              className="inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold text-text-secondary underline-offset-4 transition-colors hover:text-accent hover:underline"
             >
-              Купить
-              <ArrowRight size={16} />
+              Купить в магазине
+              <ArrowRight size={15} />
             </a>
           </div>
 

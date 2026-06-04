@@ -54,7 +54,7 @@ export default async function ProductPage({
         <PaintCalculator p={p} />
         <FactsGrid p={p} />
         {p.colorTryOn && (
-          <section className="bg-bg-base section-y">
+          <section id="try-on" className="scroll-mt-24 bg-bg-base section-y">
             <div className="page-container flex flex-col gap-8">
               <div className="flex flex-col gap-4">
                 <span className="eyebrow">Примерка цвета</span>
