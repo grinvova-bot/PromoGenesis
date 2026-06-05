@@ -80,7 +80,7 @@ export const products: ProductSpec[] = [
     tagline: "Глубокоматовая краска для потолков со сложным светом",
     category: "краска",
     badges: ["Engineered in Germany", "Экологично", "VOC <10 г/л", "Color Mix"],
-    heroImage: "/products/decker.png",
+    heroImage: "/products/genesis-decker.png",
     imageWidth: 1508,
     imageHeight: 1172,
     heroStats: [
@@ -222,7 +222,7 @@ export const products: ProductSpec[] = [
     tagline: "Сверхпрочная матовая интерьерная краска для стен",
     category: "краска",
     badges: ["1 класс истирания", "Мытьё и дезинфекция", "VOC <10 г/л", "Color Mix"],
-    heroImage: "/products/starke-farbe.png",
+    heroImage: "/products/genesis-starke-farbe.png",
     imageWidth: 1508,
     imageHeight: 1172,
     heroStats: [
@@ -397,7 +397,7 @@ export const products: ProductSpec[] = [
     tagline: "Глубокоматовая краска для стен со сложным боковым светом",
     category: "краска",
     badges: ["1–2% блеск", "1 класс укрывистости", "1 класс истирания", "Ионы серебра"],
-    heroImage: "/products/soft-matt.png",
+    heroImage: "/products/genesis-soft-matt.png",
     imageWidth: 1508,
     imageHeight: 1172,
     heroStats: [
@@ -579,7 +579,7 @@ export const products: ProductSpec[] = [
     tagline: "Грунт-концентрат глубокого проникновения на основе акрилат-гидрозоля",
     category: "грунт",
     badges: ["Глубокое проникновение", "Укрепляет основание", "Интерьер и фасад", "Концентрат"],
-    heroImage: "/products/hp.png",
+    heroImage: "/products/genesis-hp.png",
     imageWidth: 992,
     imageHeight: 1222,
     heroStats: [
@@ -731,7 +731,7 @@ export const products: ProductSpec[] = [
     tagline: "Кроющая грунтовочная краска для внутренних работ",
     category: "грунт",
     badges: ["Кроющая грунт-краска", "Матовая", "Color Mix", "VOC <10 г/л"],
-    heroImage: "/products/ge.png",
+    heroImage: "/products/genesis-ge.png",
     imageWidth: 1508,
     imageHeight: 1172,
     heroStats: [

@@ -29,7 +29,7 @@ const products: Product[] = [
     paint: true,
     name: "Genesis Decker",
     description: "Глубокоматовая краска для потолков со сложным светом",
-    image: "/products/decker.png",
+    image: "/products/genesis-decker.png",
     imageWidth: 280,
     imageHeight: 218,
     specs: [
@@ -44,7 +44,7 @@ const products: Product[] = [
     paint: true,
     name: "Genesis Starke Farbe",
     description: "Сверхпрочная матовая интерьерная краска для стен",
-    image: "/products/starke-farbe.png",
+    image: "/products/genesis-starke-farbe.png",
     imageWidth: 260,
     imageHeight: 202,
     specs: [
@@ -59,7 +59,7 @@ const products: Product[] = [
     paint: true,
     name: "Genesis Soft Matt",
     description: "Глубокоматовая интерьерная краска для стен со сложным боковым светом",
-    image: "/products/soft-matt.png",
+    image: "/products/genesis-soft-matt.png",
     imageWidth: 260,
     imageHeight: 202,
     specs: [
@@ -74,7 +74,7 @@ const products: Product[] = [
     paint: false,
     name: "Genesis HP",
     description: "Высококачественный грунтовочный состав на основе дисперсии акрилат-гидрозоля",
-    image: "/products/hp.png",
+    image: "/products/genesis-hp.png",
     imageWidth: 164,
     imageHeight: 202,
     specs: [
@@ -89,7 +89,7 @@ const products: Product[] = [
     paint: false,
     name: "Genesis GE",
     description: "Профессиональная кроющая грунтовочная краска для внутренних работ",
-    image: "/products/ge.png",
+    image: "/products/genesis-ge.png",
     imageWidth: 280,
     imageHeight: 218,
     specs: [
