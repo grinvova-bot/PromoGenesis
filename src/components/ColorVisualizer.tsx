@@ -1,7 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Copy, Paintbrush, X } from "lucide-react";
+import {
+  Baby,
+  BedDouble,
+  Briefcase,
+  Check,
+  Copy,
+  Paintbrush,
+  Sofa,
+  Utensils,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { paletteColors } from "@/data/palette";
 
@@ -41,6 +51,7 @@ const scenes = [
   {
     id: "living",
     label: "Гостиная",
+    Icon: Sofa,
     image: "/visualizer/living-foreground-v4.webp",
     lighting: "/visualizer/living-lighting-v4.webp",
     alt: "Гостиная с окрашиваемой стеной",
@@ -48,6 +59,7 @@ const scenes = [
   {
     id: "bedroom",
     label: "Спальня",
+    Icon: BedDouble,
     image: "/visualizer/bedroom-foreground-v4.webp",
     lighting: "/visualizer/bedroom-lighting-v4.webp",
     alt: "Спальня с окрашиваемой стеной",
@@ -55,6 +67,7 @@ const scenes = [
   {
     id: "office",
     label: "Кабинет",
+    Icon: Briefcase,
     image: "/visualizer/office-foreground-v4.webp",
     lighting: "/visualizer/office-lighting-v4.webp",
     alt: "Кабинет с окрашиваемой стеной",
@@ -62,6 +75,7 @@ const scenes = [
   {
     id: "kids",
     label: "Детская",
+    Icon: Baby,
     image: "/visualizer/kids-foreground-v4.webp",
     lighting: "/visualizer/kids-lighting-v4.webp",
     alt: "Детская с окрашиваемой стеной",
@@ -69,6 +83,7 @@ const scenes = [
   {
     id: "kitchen",
     label: "Кухня",
+    Icon: Utensils,
     image: "/visualizer/kitchen-foreground-v4.webp",
     lighting: "/visualizer/kitchen-lighting-v4.webp",
     alt: "Кухня с окрашиваемой стеной",
@@ -144,7 +159,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
         }`}
       >
         <div className="flex shrink-0 flex-col gap-4 bg-bg-alt p-4 md:p-6 lg:min-h-0 lg:shrink">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-1.5 sm:flex-wrap sm:gap-2">
             {scenes.map((scene) => {
               const selected = selectedScene.id === scene.id;
 
@@ -153,14 +168,18 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
                   key={scene.id}
                   type="button"
                   aria-pressed={selected}
+                  title={scene.label}
                   onClick={() => setSelectedScene(scene)}
-                  className={`rounded-full border px-3.5 py-2 text-[13px] font-medium transition-colors ${
+                  className={`flex flex-1 flex-col items-center gap-1 rounded-xl border px-1 py-2 font-medium transition-colors sm:flex-none sm:flex-row sm:gap-1.5 sm:rounded-full sm:px-3.5 sm:py-2 ${
                     selected
                       ? "border-accent bg-accent text-on-accent"
                       : "border-border-card/60 bg-bg-card text-text-secondary hover:border-accent/50 hover:text-text-primary"
                   }`}
                 >
-                  {scene.label}
+                  <scene.Icon size={18} className="shrink-0 sm:size-4" />
+                  <span className="text-[10px] leading-none sm:text-[13px]">
+                    {scene.label}
+                  </span>
                 </button>
               );
             })}
