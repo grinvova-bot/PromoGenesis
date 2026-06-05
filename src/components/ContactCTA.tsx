@@ -9,7 +9,7 @@ import { Check } from "lucide-react";
 const schema = z.object({
   name: z.string().min(2, "Минимум 2 символа"),
   phone: z.string().min(10, "Введите корректный номер"),
-  contactMethod: z.enum(["phone", "whatsapp", "telegram"]),
+  contactMethod: z.enum(["phone", "whatsapp", "telegram", "max"]),
   consent: z.literal(true, { message: "Необходимо согласие" }),
 });
 
@@ -132,6 +132,7 @@ export default function ContactCTA() {
                       { value: "phone", label: "Телефон" },
                       { value: "whatsapp", label: "WhatsApp" },
                       { value: "telegram", label: "Telegram" },
+                      { value: "max", label: "MAX" },
                     ].map((opt) => (
                       <label
                         key={opt.value}
