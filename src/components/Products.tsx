@@ -74,9 +74,9 @@ const products: Product[] = [
     paint: false,
     name: "Genesis HP",
     description: "Высококачественный грунтовочный состав на основе дисперсии акрилат-гидрозоля",
-    image: "/products/genesis-hp.webp",
-    imageWidth: 620,
-    imageHeight: 764,
+    image: "/products/genesis-hp.png",
+    imageWidth: 992,
+    imageHeight: 1222,
     specs: [
       { label: "Сухой ост.", value: "≈ 15%" },
       { label: "Расход", value: "8–12 м²/л" },
@@ -89,9 +89,9 @@ const products: Product[] = [
     paint: false,
     name: "Genesis GE",
     description: "Профессиональная кроющая грунтовочная краска для внутренних работ",
-    image: "/products/genesis-ge.webp",
-    imageWidth: 760,
-    imageHeight: 591,
+    image: "/products/genesis-ge.png",
+    imageWidth: 1508,
+    imageHeight: 1172,
     specs: [
       { label: "Сухой ост.", value: "≈ 55%" },
       { label: "Расход", value: "8–12 м²/л" },
@@ -116,7 +116,7 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
               alt={p.name}
               width={p.imageWidth}
               height={p.imageHeight}
-              className="h-auto max-w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.06]"
+              className="h-auto max-h-full w-auto max-w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.06]"
             />
           </Link>
         ) : (
@@ -132,7 +132,7 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
               alt={p.name}
               width={p.imageWidth}
               height={p.imageHeight}
-              className="h-auto max-w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.06]"
+              className="h-auto max-h-full w-auto max-w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.06]"
             />
           </a>
         )}
