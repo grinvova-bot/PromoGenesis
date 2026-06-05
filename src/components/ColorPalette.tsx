@@ -1,12 +1,42 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Check, Copy, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { paletteColors, type Collection } from "@/data/palette";
 import ColorVisualizer from "./ColorVisualizer";
 import Reveal from "./Reveal";
 
 type Filter = "all" | Collection;
+
+function CopyHexButton({ hex }: { hex: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(hex);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // буфер обмена недоступен — тихо игнорируем
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      aria-label={copied ? `Скопировано: ${hex}` : `Скопировать ${hex}`}
+      title={copied ? "Скопировано" : "Скопировать код"}
+      className="inline-flex items-center justify-center rounded-md p-1 text-[#66727f]/60 transition-colors hover:bg-black/5 hover:text-[#1b2845] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#315f91]/40 group-hover:text-[#66727f]"
+    >
+      {copied ? (
+        <Check size={13} className="text-[#3f7d54]" />
+      ) : (
+        <Copy size={13} />
+      )}
+    </button>
+  );
+}
 
 const filters: { value: Filter; label: string }[] = [
   { value: "all", label: "Все" },
@@ -105,9 +135,12 @@ export default function ColorPalette() {
                     <h3 className="text-[14px] font-medium leading-[1.35] text-[#1b2845]">
                       {color.name}
                     </h3>
-                    <span className="mt-1 text-[11px] font-medium tracking-[0.08em] text-[#66727f]">
-                      {color.hex}
-                    </span>
+                    <div className="mt-1 flex items-center gap-1">
+                      <span className="text-[11px] font-medium tracking-[0.08em] text-[#66727f]">
+                        {color.hex}
+                      </span>
+                      <CopyHexButton hex={color.hex} />
+                    </div>
                   </div>
                 </article>
               </Reveal>
