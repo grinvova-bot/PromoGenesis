@@ -139,7 +139,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
 
       <div
         data-lenis-prevent
-        className={`flex min-h-0 flex-1 flex-col overflow-y-auto lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.8fr)] lg:overflow-visible ${
+        className={`flex min-h-0 flex-1 flex-col overflow-hidden lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.8fr)] lg:overflow-visible ${
           mode === "inline" ? "lg:h-[760px] lg:flex-none" : ""
         }`}
       >
@@ -167,7 +167,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           </div>
 
           <div
-            className="relative isolate aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl shadow-inner transition-colors duration-300 sm:aspect-[3/2] lg:aspect-auto lg:min-h-[260px] lg:flex-1 lg:shrink"
+            className="relative isolate aspect-[16/10] w-full shrink-0 overflow-hidden rounded-xl shadow-inner transition-colors duration-300 sm:aspect-[3/2] lg:aspect-auto lg:min-h-[260px] lg:flex-1 lg:shrink"
             style={{ backgroundColor: selectedColor.hex }}
           >
             {selectedScene.lighting && (
@@ -215,14 +215,14 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
             </div>
           </div>
 
-          <p className="text-[12px] leading-[1.5] text-text-tertiary">
+          <p className="hidden text-[12px] leading-[1.5] text-text-tertiary sm:block">
             Примерка является визуализацией. Цветопередача зависит от
             экрана, освещения и фактуры стены.
           </p>
         </div>
 
         <div
-          className="shrink-0 border-t border-border-card/50 p-4 md:p-6 lg:min-h-0 lg:shrink lg:overflow-y-auto lg:border-l lg:border-t-0"
+          className="min-h-0 flex-1 overflow-y-auto border-t border-border-card/50 p-4 md:p-6 lg:flex-none lg:border-l lg:border-t-0"
           data-lenis-prevent
         >
           <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-2">
