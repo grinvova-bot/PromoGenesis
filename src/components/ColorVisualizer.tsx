@@ -222,15 +222,15 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
       className={
         mode === "modal"
           ? "flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[1240px] flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card shadow-2xl md:max-h-[calc(100dvh-3rem)]"
-          : "flex max-h-[88svh] w-full flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card lg:max-h-none"
+          : "flex max-h-[92svh] w-full flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card lg:max-h-none"
       }
     >
-      <header className="flex items-start justify-between gap-6 border-b border-border-card/50 px-5 py-4 md:px-7 md:py-5">
-        <div className="flex flex-col gap-1">
+      <header className="flex items-start justify-between gap-6 border-b border-border-card/50 px-5 py-2.5 md:px-7 md:py-5">
+        <div className="flex flex-col gap-0.5 sm:gap-1">
           <span className="eyebrow">Примерка цвета</span>
           <h2
             id="color-visualizer-title"
-            className="font-display text-xl font-bold text-text-primary md:text-2xl"
+            className="font-display text-base font-bold text-text-primary sm:text-xl md:text-2xl"
           >
             Выберите интерьер и оттенок
           </h2>
@@ -253,7 +253,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           mode === "inline" ? "lg:h-[760px] lg:flex-none" : ""
         }`}
       >
-        <div className="flex shrink-0 flex-col gap-4 bg-bg-alt p-4 md:p-6 lg:min-h-0 lg:shrink">
+        <div className="flex shrink-0 flex-col gap-2.5 bg-bg-alt p-3 sm:gap-4 sm:p-4 md:p-6 lg:min-h-0 lg:shrink">
           <div className="flex gap-1.5 sm:flex-wrap sm:gap-2">
             {scenes.map((scene) => {
               const selected = selectedScene.id === scene.id;
@@ -281,7 +281,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           </div>
 
           <div
-            className="relative isolate aspect-[16/10] w-full shrink-0 overflow-hidden rounded-xl shadow-inner transition-colors duration-300 sm:aspect-[3/2] lg:aspect-auto lg:min-h-[260px] lg:flex-1 lg:shrink"
+            className="relative isolate h-[clamp(110px,18svh,176px)] w-full shrink-0 overflow-hidden rounded-xl shadow-inner transition-colors duration-300 sm:h-auto sm:aspect-[3/2] lg:aspect-auto lg:min-h-[260px] lg:flex-1 lg:shrink"
             style={{ backgroundColor: selectedColor.hex }}
           >
             {selectedScene.lighting && (
@@ -325,10 +325,10 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
             </button>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border-card/50 bg-bg-card px-4 py-3.5">
-            <div className="flex items-center gap-3 text-left">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 rounded-xl border border-border-card/50 bg-bg-card px-3.5 py-2.5 sm:px-4 sm:py-3.5">
+            <div className="flex items-center gap-2.5 text-left sm:gap-3">
               <span
-                className="h-11 w-11 shrink-0 rounded-full border border-black/10 shadow-sm"
+                className="h-9 w-9 shrink-0 rounded-full border border-black/10 shadow-sm sm:h-11 sm:w-11"
                 style={{ backgroundColor: selectedColor.hex }}
               />
               <div className="leading-tight">
