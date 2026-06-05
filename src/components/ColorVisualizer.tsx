@@ -7,6 +7,8 @@ import {
   Briefcase,
   Check,
   Copy,
+  Download,
+  Loader2,
   Paintbrush,
   Sofa,
   Utensils,
@@ -100,6 +102,99 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
   const [selectedScene, setSelectedScene] = useState<(typeof scenes)[number]>(
     scenes[0],
   );
+  const [downloadState, setDownloadState] = useState<
+    "idle" | "loading" | "done"
+  >("idle");
+
+  const handleDownload = async () => {
+    if (downloadState === "loading") return;
+    setDownloadState("loading");
+
+    const loadImage = (src: string) =>
+      new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new window.Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+
+    try {
+      const [foreground, lighting] = await Promise.all([
+        loadImage(selectedScene.image),
+        selectedScene.lighting
+          ? loadImage(selectedScene.lighting)
+          : Promise.resolve(null),
+      ]);
+
+      const w = foreground.naturalWidth;
+      const h = foreground.naturalHeight;
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("no 2d context");
+
+      // 1. цвет стены
+      ctx.fillStyle = selectedColor.hex;
+      ctx.fillRect(0, 0, w, h);
+      // 2. карта освещения (как mix-blend-multiply в CSS)
+      if (lighting) {
+        ctx.globalCompositeOperation = "multiply";
+        ctx.drawImage(lighting, 0, 0, w, h);
+      }
+      // 3. передний план (мебель, окна)
+      ctx.globalCompositeOperation = "source-over";
+      ctx.drawImage(foreground, 0, 0, w, h);
+
+      // 4. фирменная плашка
+      const barH = Math.round(h * 0.12);
+      const y = h - barH;
+      ctx.fillStyle = "rgba(12,18,28,0.78)";
+      ctx.fillRect(0, y, w, barH);
+
+      const pad = Math.round(barH * 0.3);
+      const sw = Math.round(barH * 0.42);
+      ctx.fillStyle = selectedColor.hex;
+      ctx.fillRect(pad, y + (barH - sw) / 2, sw, sw);
+      ctx.strokeStyle = "rgba(255,255,255,0.55)";
+      ctx.lineWidth = Math.max(1, Math.round(sw * 0.04));
+      ctx.strokeRect(pad, y + (barH - sw) / 2, sw, sw);
+
+      const textX = pad + sw + Math.round(pad * 0.7);
+      const font = "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif";
+      ctx.textBaseline = "alphabetic";
+      ctx.fillStyle = "#ffffff";
+      ctx.font = `700 ${Math.round(barH * 0.27)}px ${font}`;
+      ctx.fillText("TEX-COLOR GENESIS", textX, y + barH * 0.46);
+      ctx.fillStyle = "rgba(255,255,255,0.82)";
+      ctx.font = `500 ${Math.round(barH * 0.24)}px ${font}`;
+      ctx.fillText(
+        `${selectedColor.code} · ${selectedColor.name} · ${selectedColor.hex}`,
+        textX,
+        y + barH * 0.8,
+      );
+
+      const blob = await new Promise<Blob | null>((resolve) =>
+        canvas.toBlob(resolve, "image/jpeg", 0.92),
+      );
+      if (!blob) throw new Error("toBlob failed");
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `genesis-${selectedScene.id}-${selectedColor.code}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+
+      setDownloadState("done");
+      window.setTimeout(() => setDownloadState("idle"), 1800);
+    } catch {
+      setDownloadState("idle");
+    }
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -209,6 +304,25 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
               className="object-cover"
               priority
             />
+            <button
+              type="button"
+              onClick={handleDownload}
+              disabled={downloadState === "loading"}
+              aria-label="Скачать изображение с выбранным цветом"
+              title="Скачать изображение"
+              className="absolute right-2.5 top-2.5 z-10 inline-flex items-center gap-1.5 rounded-lg bg-black/45 px-2.5 py-2 text-[12px] font-medium text-white backdrop-blur-sm transition-colors hover:bg-black/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 disabled:opacity-80"
+            >
+              {downloadState === "loading" ? (
+                <Loader2 size={16} className="animate-spin" />
+              ) : downloadState === "done" ? (
+                <Check size={16} />
+              ) : (
+                <Download size={16} />
+              )}
+              <span className="hidden sm:inline">
+                {downloadState === "done" ? "Готово" : "Скачать"}
+              </span>
+            </button>
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border-card/50 bg-bg-card px-4 py-3.5">
