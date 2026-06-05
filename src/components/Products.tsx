@@ -101,18 +101,41 @@ const products: Product[] = [
 ];
 
 function ProductCard({ p, index }: { p: Product; index: number }) {
+  const product = getProduct(p.slug);
+  const href = product ? `/products/${p.slug}/` : BUY_URL;
+  const imageClassName =
+    "flex h-[280px] items-center justify-center p-8 [background:radial-gradient(circle_at_center,var(--product-image-center),var(--product-image-edge))]";
+
   return (
     <Reveal index={index} as="article" className="h-full">
       <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border-card/40 bg-bg-card shadow-[0_8px_30px_-12px_#00000060] transition-all duration-300 hover:-translate-y-1 hover:border-accent/30">
-        <div className="flex h-[280px] items-center justify-center p-8 [background:radial-gradient(circle_at_center,var(--product-image-center),var(--product-image-edge))]">
-          <Image
-            src={p.image}
-            alt={p.name}
-            width={p.imageWidth}
-            height={p.imageHeight}
-            className="h-auto max-w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.06]"
-          />
-        </div>
+        {product ? (
+          <Link href={href} aria-label={`Подробнее о ${p.name}`} className={imageClassName}>
+            <Image
+              src={p.image}
+              alt={p.name}
+              width={p.imageWidth}
+              height={p.imageHeight}
+              className="h-auto max-w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.06]"
+            />
+          </Link>
+        ) : (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Купить ${p.name}`}
+            className={imageClassName}
+          >
+            <Image
+              src={p.image}
+              alt={p.name}
+              width={p.imageWidth}
+              height={p.imageHeight}
+              className="h-auto max-w-full object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 group-hover:scale-[1.06]"
+            />
+          </a>
+        )}
         <div className="flex flex-1 flex-col gap-4 p-7">
           <span
             className={`w-fit rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-[2px] ${
@@ -141,9 +164,9 @@ function ProductCard({ p, index }: { p: Product; index: number }) {
               </div>
             ))}
           </dl>
-          {getProduct(p.slug) ? (
+          {product ? (
             <Link
-              href={`/products/${p.slug}/`}
+              href={href}
               className="group/btn mt-1 flex items-center justify-between rounded-lg border border-accent/20 px-4 py-3 text-[14px] font-semibold text-text-primary transition-colors hover:border-accent/45 hover:bg-accent/10"
             >
               Подробнее
