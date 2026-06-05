@@ -138,11 +138,12 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
       </header>
 
       <div
-        className={`grid min-h-0 flex-1 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.8fr)] ${
+        data-lenis-prevent
+        className={`flex min-h-0 flex-1 flex-col overflow-y-auto lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.8fr)] lg:overflow-visible ${
           mode === "inline" ? "lg:h-[760px] lg:flex-none" : ""
         }`}
       >
-        <div className="flex min-h-0 flex-col gap-4 bg-bg-alt p-4 md:p-6">
+        <div className="flex shrink-0 flex-col gap-4 bg-bg-alt p-4 md:p-6 lg:min-h-0 lg:shrink">
           <div className="flex flex-wrap gap-2">
             {scenes.map((scene) => {
               const selected = selectedScene.id === scene.id;
@@ -166,7 +167,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           </div>
 
           <div
-            className="relative isolate aspect-[3/2] overflow-hidden rounded-xl shadow-inner transition-colors duration-300"
+            className="relative isolate aspect-[4/3] w-full shrink-0 overflow-hidden rounded-xl shadow-inner transition-colors duration-300 sm:aspect-[3/2] lg:aspect-auto lg:min-h-[260px] lg:flex-1 lg:shrink"
             style={{ backgroundColor: selectedColor.hex }}
           >
             {selectedScene.lighting && (
@@ -221,7 +222,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
         </div>
 
         <div
-          className="min-h-0 overflow-y-auto border-t border-border-card/50 p-4 md:p-6 lg:border-l lg:border-t-0"
+          className="shrink-0 border-t border-border-card/50 p-4 md:p-6 lg:min-h-0 lg:shrink lg:overflow-y-auto lg:border-l lg:border-t-0"
           data-lenis-prevent
         >
           <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-2">
