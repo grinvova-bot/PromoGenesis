@@ -9,6 +9,8 @@
   --color-bg-deep: var(--theme-bg-deep);
   --color-accent: var(--theme-accent);
   --color-accent-2: var(--theme-accent-2);
+  --color-footer-accent: var(--theme-footer-accent);
+  --color-footer-muted: var(--theme-footer-muted);
   --color-text-primary: var(--theme-text-primary);
   --color-text-secondary: var(--theme-text-secondary);
   --color-text-tertiary: var(--theme-text-tertiary);
@@ -29,6 +31,8 @@ html[data-theme="dark"] {
   --theme-bg-deep: #0d1b2a;
   --theme-accent: #65afff;
   --theme-accent-2: #5899e2;
+  --theme-footer-accent: #8fc8ff;
+  --theme-footer-muted: #a8bfd3;
   --theme-text-primary: #f0f4f8;
   --theme-text-secondary: #8eacc8;
   --theme-text-tertiary: #5a7a96;
@@ -53,6 +57,8 @@ html[data-theme="light"] {
   --theme-bg-deep: #0d1b2a;
   --theme-accent: #2b73b7;
   --theme-accent-2: #467fae;
+  --theme-footer-accent: #1f5f99;
+  --theme-footer-muted: #536b80;
   --theme-text-primary: #17283a;
   --theme-text-secondary: #536b80;
   --theme-text-tertiary: #74889a;
@@ -75,6 +81,8 @@ html[data-theme="light"] {
   --theme-bg-deep: #0d1b2a;
   --theme-accent: #65afff;
   --theme-accent-2: #5899e2;
+  --theme-footer-accent: #8fc8ff;
+  --theme-footer-muted: #a8bfd3;
   --theme-text-primary: #f0f4f8;
   --theme-text-secondary: #a8bfd3;
   --theme-text-tertiary: #6f8ca5;

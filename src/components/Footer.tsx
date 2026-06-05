@@ -27,7 +27,7 @@ export default function Footer() {
               <span className="font-display text-[16px] font-bold tracking-[-0.02em] text-text-primary">
                 TEX-COLOR
               </span>
-              <span className="font-display text-[16px] font-medium tracking-[0.04em] text-accent">
+              <span className="font-display text-[16px] font-medium tracking-[0.04em] text-footer-accent">
                 GENESIS
               </span>
             </div>
@@ -60,7 +60,7 @@ export default function Footer() {
                 </a>
                 <a
                   href={`mailto:${s.email}`}
-                  className="text-[13px] text-accent transition-opacity hover:opacity-80"
+                  className="text-[13px] text-footer-accent transition-opacity hover:opacity-80"
                 >
                   {s.email}
                 </a>
@@ -72,14 +72,14 @@ export default function Footer() {
         <div className="h-px w-full bg-accent/[0.12]" />
 
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <p className="text-[13px] text-text-tertiary">
+          <p className="text-[13px] text-footer-muted">
             © 2025 АЛЬТ-Икс — краски · декоры · колеровка
           </p>
           <a
             href="https://promo.alt-x.ru/pdd"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[13px] text-text-tertiary transition-colors hover:text-text-primary"
+            className="text-[13px] text-footer-muted transition-colors hover:text-text-primary"
           >
             Политика конфиденциальности
           </a>

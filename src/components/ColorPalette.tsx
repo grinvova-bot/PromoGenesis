@@ -94,6 +94,7 @@ export default function ColorPalette() {
                     <div
                       className="h-full w-full rounded-lg border border-black/5 transition-transform duration-500 group-hover:scale-[1.02]"
                       style={{ backgroundColor: color.hex }}
+                      role="img"
                       aria-label={`${color.code} ${color.name}, цвет ${color.hex}`}
                     />
                   </div>

@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     images: [
       {
-        url: "/img/hero-interior.jpg",
+        url: "/img/hero-interior.webp",
         width: 1200,
         height: 630,
         alt: "Интерьер с профессиональными красками TEX-COLOR Genesis",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: "TEX-COLOR GENESIS — профессиональные краски и грунты",
     description:
       "Профессиональные краски и грунты Genesis: характеристики, применение, фасовки и расчёт расхода.",
-    images: ["/img/hero-interior.jpg"],
+    images: ["/img/hero-interior.webp"],
   },
   verification: {
     yandex: "e0d61056162210df",

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
@@ -34,30 +35,30 @@ export default function Navigation() {
       }`}
     >
       <nav className="page-container flex h-[64px] items-center justify-between">
-        <a href="/" className="flex items-baseline gap-2" aria-label="TEX-COLOR GENESIS">
+        <Link href="/" className="flex items-baseline gap-2">
           <span className="font-display text-[17px] font-bold tracking-[-0.02em] text-text-primary">
             TEX-COLOR
           </span>
           <span className="font-display text-[17px] font-medium tracking-[0.04em] text-accent">
             GENESIS
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-7 lg:flex">
           {navLinks.map((l) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
               className="text-[15px] font-medium text-text-secondary transition-colors hover:text-text-primary"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
           <ThemeToggle />
-          <a href="/#contact" className="btn btn-primary btn-sm">
+          <Link href="/#contact" className="btn btn-primary btn-sm">
             Получить веер
             <ArrowRight size={16} />
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-3 lg:hidden">
@@ -78,23 +79,23 @@ export default function Navigation() {
         <div className="border-t border-accent/10 bg-bg-base/95 backdrop-blur-md lg:hidden">
           <div className="page-container flex flex-col gap-1 py-4">
             {navLinks.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="py-2.5 text-[16px] font-medium text-text-secondary transition-colors hover:text-text-primary"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a
+            <Link
               href="/#contact"
               onClick={() => setOpen(false)}
               className="btn btn-primary mt-2"
             >
               Получить веер
               <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
         </div>
       )}

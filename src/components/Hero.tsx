@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
@@ -20,11 +21,14 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-bg-base">
       {/* Фон — фото интерьера */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-opacity duration-500"
-        style={{
-          backgroundImage: "url('/img/hero-interior.jpg')",
-        }}
+      <Image
+        src="/img/hero-interior.webp"
+        alt=""
+        fill
+        priority
+        unoptimized
+        sizes="100vw"
+        className="absolute inset-0 object-cover object-center"
         aria-hidden
       />
       <div

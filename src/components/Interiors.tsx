@@ -122,7 +122,6 @@ export default function Interiors() {
                     src={interior.image}
                     alt={`${interior.room} в цвете ${interior.code} ${interior.colorName}`}
                     fill
-                    loading="eager"
                     unoptimized
                     sizes={
                       interior.featured
@@ -142,6 +141,7 @@ export default function Interiors() {
                     <span
                       className="h-10 w-10 shrink-0 rounded-full border border-black/10 shadow-sm"
                       style={{ backgroundColor: interior.hex }}
+                      role="img"
                       aria-label={`Цвет ${interior.hex}`}
                     />
                     <div className="flex flex-col gap-0.5">

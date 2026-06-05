@@ -3,7 +3,7 @@
 import { ShieldCheck, Leaf, Factory } from "lucide-react";
 import Reveal from "./Reveal";
 
-const ABOUT_IMG = "/img/detail-paint.png";
+const ABOUT_IMG = "/img/detail-paint.webp";
 
 const features = [
   {
