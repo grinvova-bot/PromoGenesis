@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
@@ -18,6 +18,8 @@ const navLinks = [
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const navItemsRef = useRef<HTMLDivElement>(null);
+  const [indicator, setIndicator] = useState({ left: 0, width: 0, visible: false });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -25,6 +27,20 @@ export default function Navigation() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const moveIndicator = (target: HTMLElement) => {
+    const parent = navItemsRef.current;
+    if (!parent) return;
+
+    const parentRect = parent.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+
+    setIndicator({
+      left: targetRect.left - parentRect.left,
+      width: targetRect.width,
+      visible: true,
+    });
+  };
 
   return (
     <header
@@ -44,12 +60,28 @@ export default function Navigation() {
           </span>
         </Link>
 
-        <div className="hidden items-center gap-7 lg:flex">
+        <div
+          ref={navItemsRef}
+          onMouseLeave={() => setIndicator((current) => ({ ...current, visible: false }))}
+          className="relative hidden items-center gap-7 lg:flex"
+        >
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-1 h-px rounded-full bg-accent transition-[opacity,transform,width] duration-300 ease-out"
+            style={{
+              opacity: indicator.visible ? 1 : 0,
+              transform: `translateX(${indicator.left}px)`,
+              width: indicator.width,
+            }}
+          />
           {navLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-[15px] font-medium text-text-secondary transition-colors hover:text-text-primary"
+              onMouseEnter={(event) => moveIndicator(event.currentTarget)}
+              onFocus={(event) => moveIndicator(event.currentTarget)}
+              onBlur={() => setIndicator((current) => ({ ...current, visible: false }))}
+              className="relative py-2 text-[15px] font-medium text-text-secondary transition-colors duration-300 hover:text-text-primary focus-visible:text-text-primary"
             >
               {l.label}
             </Link>
