@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import CookieConsent from "@/components/CookieConsent";
 import SmoothScroll from "@/components/SmoothScroll";
+import { siteName, siteUrl } from "@/lib/seo";
 
 // Дисплейный шрифт заголовков — характерный геометрический гротеск с кириллицей
 const display = Unbounded({
@@ -22,23 +23,54 @@ const sans = Golos_Text({
 });
 
 export const metadata: Metadata = {
-  title: "TEX-COLOR GENESIS — Профессиональные краски премиум-класса",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "TEX-COLOR GENESIS — профессиональные краски и грунты",
+    template: `%s | ${siteName}`,
+  },
   description:
-    "Профессиональные краски tex-color Genesis — локализация немецких рецептур. Немецкое качество с 1942 года, VOC менее 10 г/л, российское производство.",
+    "Профессиональные краски и грунты TEX-COLOR Genesis для интерьеров: немецкие рецептуры, российское производство, VOC менее 10 г/л, Color Mix и расчёт расхода.",
   keywords: [
     "tex-color Genesis",
     "профессиональные краски",
     "интерьерные краски",
+    "краски для стен",
+    "краски для потолков",
     "немецкие краски",
     "грунтовка",
     "глубокоматовая краска",
   ],
+  applicationName: siteName,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
-    title: "TEX-COLOR GENESIS — Идеальная поверхность. Благородный цвет.",
+    title: "TEX-COLOR GENESIS — профессиональные краски и грунты",
     description:
-      "Локализация немецких рецептур для профессионального применения. Немецкое качество с 1942 года.",
+      "Краски и грунты Genesis для стен, потолков и подготовки основания. Характеристики, фасовки, применение и расчёт расхода.",
+    url: siteUrl,
+    siteName,
     type: "website",
     locale: "ru_RU",
+    images: [
+      {
+        url: "/img/hero-interior.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Интерьер с профессиональными красками TEX-COLOR Genesis",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TEX-COLOR GENESIS — профессиональные краски и грунты",
+    description:
+      "Профессиональные краски и грунты Genesis: характеристики, применение, фасовки и расчёт расхода.",
+    images: ["/img/hero-interior.jpg"],
   },
   verification: {
     yandex: "e0d61056162210df",

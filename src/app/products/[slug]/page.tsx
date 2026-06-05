@@ -13,6 +13,13 @@ import ColorVisualizer from "@/components/ColorVisualizer";
 import ContactCTA from "@/components/ContactCTA";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import {
+  absoluteUrl,
+  jsonLd,
+  productDescription,
+  productUrl,
+  siteName,
+} from "@/lib/seo";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -26,9 +33,37 @@ export async function generateMetadata({
   const { slug } = await params;
   const p = getProduct(slug);
   if (!p) return {};
+  const description = productDescription(p);
+  const url = productUrl(p.slug);
+
   return {
     title: `${p.name} — ${p.tagline}`,
-    description: p.tagline,
+    description,
+    alternates: {
+      canonical: `/products/${p.slug}/`,
+    },
+    openGraph: {
+      title: `${p.name} — ${p.tagline}`,
+      description,
+      url,
+      siteName,
+      type: "website",
+      locale: "ru_RU",
+      images: [
+        {
+          url: p.heroImage,
+          width: p.imageWidth,
+          height: p.imageHeight,
+          alt: p.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${p.name} — ${p.tagline}`,
+      description,
+      images: [p.heroImage],
+    },
   };
 }
 
@@ -41,8 +76,50 @@ export default async function ProductPage({
   const p = getProduct(slug);
   if (!p) notFound();
 
+  const offers = (p.packagingByBase
+    ? p.packagingByBase.flatMap((base) =>
+        base.packaging.map((pack) => ({
+          ...pack,
+          base: base.label,
+        })),
+      )
+    : p.packaging.map((pack) => ({ ...pack, base: undefined }))
+  ).map((pack) => ({
+    "@type": "Offer",
+    sku: pack.sku,
+    name: [p.name, pack.base, `${pack.volumeL} л`].filter(Boolean).join(" · "),
+    price: pack.priceRub,
+    priceCurrency: "RUB",
+    availability: "https://schema.org/InStock",
+    url: productUrl(p.slug),
+  }));
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: p.name,
+    image: absoluteUrl(p.heroImage),
+    description: productDescription(p),
+    sku: p.packaging[0]?.sku,
+    category: p.category === "краска" ? "Интерьерная краска" : "Грунтовка",
+    brand: {
+      "@type": "Brand",
+      name: siteName,
+    },
+    additionalProperty: p.specs.map((spec) => ({
+      "@type": "PropertyValue",
+      name: spec.label,
+      value: spec.value,
+    })),
+    offers,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd(productJsonLd) }}
+      />
       <Navigation />
       <main>
         <ProductHero p={p} />
