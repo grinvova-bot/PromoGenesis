@@ -218,24 +218,25 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
     <section
       role={mode === "modal" ? "dialog" : undefined}
       aria-modal={mode === "modal" ? true : undefined}
-      aria-labelledby="color-visualizer-title"
+      aria-labelledby={mode === "modal" ? "color-visualizer-title" : undefined}
+      aria-label={mode === "inline" ? "Примерка цвета в интерьере" : undefined}
       className={
         mode === "modal"
           ? "flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[1240px] flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card shadow-2xl md:max-h-[calc(100dvh-3rem)]"
-          : "flex max-h-[92svh] w-full flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card lg:max-h-none"
+          : "flex max-h-[96svh] w-full flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card lg:max-h-none"
       }
     >
-      <header className="flex items-start justify-between gap-6 border-b border-border-card/50 px-5 py-2.5 md:px-7 md:py-5">
-        <div className="flex flex-col gap-0.5 sm:gap-1">
-          <span className="eyebrow">Примерка цвета</span>
-          <h2
-            id="color-visualizer-title"
-            className="font-display text-base font-bold text-text-primary sm:text-xl md:text-2xl"
-          >
-            Выберите интерьер и оттенок
-          </h2>
-        </div>
-        {mode === "modal" && (
+      {mode === "modal" && (
+        <header className="flex items-start justify-between gap-6 border-b border-border-card/50 px-5 py-2.5 md:px-7 md:py-5">
+          <div className="flex flex-col gap-0.5 sm:gap-1">
+            <span className="eyebrow">Примерка цвета</span>
+            <h2
+              id="color-visualizer-title"
+              className="font-display text-base font-bold text-text-primary sm:text-xl md:text-2xl"
+            >
+              Выберите интерьер и оттенок
+            </h2>
+          </div>
           <button
             type="button"
             aria-label="Закрыть примерку цвета"
@@ -244,8 +245,8 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           >
             <X size={20} />
           </button>
-        )}
-      </header>
+        </header>
+      )}
 
       <div
         data-lenis-prevent
@@ -281,7 +282,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           </div>
 
           <div
-            className="relative isolate h-[clamp(110px,18svh,176px)] w-full shrink-0 overflow-hidden rounded-xl shadow-inner transition-colors duration-300 sm:h-auto sm:aspect-[3/2] lg:aspect-auto lg:min-h-[260px] lg:flex-1 lg:shrink"
+            className="relative isolate aspect-[16/10] max-h-[34svh] w-full shrink-0 overflow-hidden rounded-xl shadow-inner transition-colors duration-300 sm:max-h-none sm:aspect-[3/2] lg:aspect-auto lg:min-h-[260px] lg:flex-1 lg:shrink"
             style={{ backgroundColor: selectedColor.hex }}
           >
             {selectedScene.lighting && (
