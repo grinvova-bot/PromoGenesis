@@ -1,11 +1,41 @@
 "use client";
 
 import Image from "next/image";
-import { Paintbrush, X } from "lucide-react";
+import { Check, Copy, Paintbrush, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { paletteColors } from "@/data/palette";
 
 const INITIAL_COLOR = paletteColors.find((color) => color.code === "TN105")!;
+
+function CopyHexButton({ hex }: { hex: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(hex);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // буфер обмена недоступен — тихо игнорируем
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      aria-label={copied ? `Скопировано: ${hex}` : `Скопировать ${hex}`}
+      title={copied ? "Скопировано" : "Скопировать код"}
+      className="inline-flex shrink-0 items-center justify-center rounded-md p-1 text-text-secondary/60 transition-colors hover:bg-text-primary/5 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+    >
+      {copied ? (
+        <Check size={14} className="text-[#3f7d54]" />
+      ) : (
+        <Copy size={14} />
+      )}
+    </button>
+  );
+}
 
 const scenes = [
   {
@@ -162,12 +192,12 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border-card/50 bg-bg-card px-4 py-3.5">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 text-left">
               <span
                 className="h-11 w-11 shrink-0 rounded-full border border-black/10 shadow-sm"
                 style={{ backgroundColor: selectedColor.hex }}
               />
-              <div>
+              <div className="leading-tight">
                 <p className="text-[12px] font-semibold tracking-[0.12em] text-accent">
                   {selectedColor.code}
                 </p>
@@ -176,9 +206,12 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
                 </p>
               </div>
             </div>
-            <span className="text-[13px] font-medium tracking-[0.08em] text-text-secondary">
-              {selectedColor.hex}
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[13px] font-medium tracking-[0.08em] text-text-secondary">
+                {selectedColor.hex}
+              </span>
+              <CopyHexButton hex={selectedColor.hex} />
+            </div>
           </div>
 
           <p className="text-[12px] leading-[1.5] text-text-tertiary">
