@@ -91,6 +91,10 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
+              // Превью-копия на *.vercel.app — переадресуем на боевой домен
+              if (location.hostname.endsWith(".vercel.app")) {
+                location.replace("https://genesis.alt-x.ru" + location.pathname + location.search + location.hash);
+              }
               try {
                 const savedTheme = localStorage.getItem("genesis-theme");
                 document.documentElement.dataset.theme =

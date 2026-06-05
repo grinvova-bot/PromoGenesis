@@ -1,12 +1,5 @@
 {
   "framework": "nextjs",
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "redirects": [
-    {
-      "source": "/:path*",
-      "destination": "https://genesis.alt-x.ru/:path*",
-      "permanent": true
-    }
-  ]
+  "installCommand": "npm install"
 }
