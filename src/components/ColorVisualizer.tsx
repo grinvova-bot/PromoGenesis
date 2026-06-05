@@ -127,7 +127,7 @@ export default function ColorVisualizer({ mode = "modal" }: Props) {
       className={
         mode === "modal"
           ? "flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[1240px] flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card shadow-2xl md:max-h-[calc(100dvh-3rem)]"
-          : "flex w-full flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card"
+          : "flex max-h-[88svh] w-full flex-col overflow-hidden rounded-2xl border border-border-card/60 bg-bg-card lg:max-h-none"
       }
     >
       <header className="flex items-start justify-between gap-6 border-b border-border-card/50 px-5 py-4 md:px-7 md:py-5">
